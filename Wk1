@@ -1,0 +1,280 @@
+1.14 zyLab training: Basics (Python 3)
+###
+While the zyLab platform can be used without training, a bit of training may help some students avoid common issues.
+The assignment is to get an integer from input, and output that integer squared, ending with newline. 
+(Note: This assignment is configured to have students programming directly in the zyBook. Instructors may instead require students 
+to upload a file). Below is a program that's been nearly completed for you.
+
+1. Click "Run program". The output is wrong. Sometimes a program lacking input will produce wrong output (as in this case), or no 
+output. Remember to always pre-enter needed input.
+2. Type 2 in the input box, then click "Run program", and note the output is 4.
+3. Type 3 in the input box instead, run, and note the output is 6.
+
+When students are done developing their program, they can submit the program for automated grading.
+
+1. Click the "Submit mode" tab
+2. Click "Submit for grading".
+3. The first test case failed (as did all test cases, but focus on the first test case first). The highlighted arrow symbol means 
+an ending newline was expected but is missing from your program's output.
+
+Matching output exactly, even whitespace, is often required. Change the program to output an ending newline.
+
+1. Click on "Develop mode", and change the output statement to output a newline: print(userNumSquared, end=' '). Type 2 in the input 
+box and run.
+2. Click on "Submit mode", click "Submit for grading", and observe that now the first test case passes and 1 point was earned.
+
+The last two test cases failed, due to a bug, yielding only 1 of 3 possible points. Fix that bug.
+
+1. Click on "Develop mode", change the program to use * rather than +, and try running with input 2 (output is 4) and 3 (output is 
+now 9, not 6 as before).
+2. Click on "Submit mode" again, and click "Submit for grading". Observe that all test cases are passed, and you've earned 3 of 3 
+points.
+###
+userNum = int(input())
+userNumSquared = userNum * userNum  
+print(userNumSquared) 
+
+
+
+1.15 zyLab training: Interleaved input / output (Python 3)
+###
+Auto-graded programming assignments have numerous advantages, but have some challenges too. Students commonly struggle with realizing 
+that example input / output provided in an assignment's specification interleaves input and output, but the program should only output 
+the output parts. If a program should double its input, an instructor might provide this example:
+
+Enter x: 
+5
+x doubled is: 10
+
+Students often incorrectly create a program that outputs the 5. Instead, the program should only output the output parts:
+
+Enter x: 
+x doubled is: 10
+
+The instructor's example is showing both the output of the program, AND the user's input to that program, assuming the program is 
+developed in an environment where a user is interacting with a program. But the program itself doesn't output the 5 (or the newline following the 5, which occurs when the user types 5 and presses enter).
+
+Also, if the instructor configured the test cases to observe whitespace, then according to the above example, the program should 
+output a newline after Enter x: (and possibly after the 10, if the instructor's test case expects that).
+
+The program below incorrectly echoes the user's input to the output.
+
+1. Try submitting it for grading (click "Submit mode", then "Submit for grading"). Notice that the test cases fail. The first test 
+case's highlighting indicates that output 3 and newline were not expected. In the second test case, the -5 and newline were not 
+expected.
+2. Remove the code that echoes the user's input back to the output, and submit again. Now the test cases should all pass.
+###
+print('Enter x: ')
+x = int(input())
+print('x doubled is:', (2 * x))
+
+
+
+
+1.16 Ch 1 Warm up: Basic output with variables (Python 3)
+###
+This zyLab activity prepares a student for a full programming assignment. Warm up exercises are typically simpler and worth fewer 
+points than a full programming assignment, and are well-suited for an in-person scheduled lab meeting or as self-practice.
+
+A variable like userNum can store a value like an integer. Extend the given program to print userNum values as indicated. 
+(Submit for 2 points).
+
+(1) Output the user's input. 
+
+Note: This zyLab outputs a newline after each user-input prompt. For convenience in the examples below, the user's input value is 
+shown on the next line, but such values don't actually appear as output when the program runs.
+
+Enter integer:
+4
+You entered: 4
+
+(2) Extend to output the input squared and cubed. Hint: Compute squared as userNum * userNum. (Submit for 2 points, so 4 points total).
+
+Enter integer:
+4
+You entered: 4
+4 squared is 16 
+And 4 cubed is 64 !! 
+
+(3) Extend to get a second user input into userNum2. Output sum and product. (Submit for 1 point, so 5 points total).
+
+Enter integer:
+4
+You entered: 4
+4 squared is 16 
+And 4 cubed is 64 !!
+Enter another integer:
+5
+4 + 5 is 9
+4 * 5 is 20
+###
+userNum = int(input('Enter integer:\n'))
+print("You entered:", userNum) 
+squared = userNum * userNum
+cubed = userNum * userNum * userNum
+print(userNum, 'squared is', squared)
+print('And', userNum, 'cubed is', cubed, '!!')
+userNum2 = int(input('Enter another integer:\n'))
+sum = userNum + userNum2
+product = userNum * userNum2
+print('4 + 5 is', sum)
+print('4 * 5 is', product)
+
+
+
+1.17 Ch 1 Warm up: Hello world (Python 3)
+###
+This zyLab activity prepares a student for a full programming assignment. Warm up exercises are typically simpler and worth fewer 
+points than a full programming assignment, and are well-suited for an in-person scheduled lab meeting or as self-practice.
+
+For each of the following steps, end the program's output with a newline.
+
+(1) Write a program that outputs the following. (Submit for 1 point).
+
+Hello world!
+
+(2) Update to output the following. (Submit again for 1 more point, so 2 points total).
+
+Hello world!
+How are you? 
+
+(3) Finally, update to output the following. (Submit again for 1 more point, so 3 points total).
+
+Hello world!
+How are you?
+   (I'm fine).
+
+Hint: The ' character is printed by the two character sequence \'. Ex: print('\'')
+###
+print("Hello world!")
+print("How are you?")
+print("   (I'm fine).")
+
+
+
+1.18 Ch 1 Program: ASCII art (Python 3)
+###
+This zyLab activity is the traditional programming assignment, typically requiring a few hours over a week. The previous sections 
+provide warm up exercises intended to help a student prepare for this programming assignment.
+
+(1) Output this tree. (Submit for 2 points).
+
+   *
+  ***
+ *****
+*******
+  ***
+
+(2) Below the tree (with two blank lines), output this cat. (Submit for 3 points, so 5 points total).
+
+/\   /\
+  o o
+ =   =
+  ---
+Hint: A backslash \ in a string acts as an escape character, such as with a newline \n. So, to print an actual backslash, escape 
+that backslash by prepending another backslash. Ex: The following prints a single backslash: print('\\')
+###
+# Draw tree
+print('   *')
+print('  ***')
+print(' *****')
+print('*******')
+print('  ***')
+print('\n')
+print('/\\   /\\')
+print('  o o')
+print(' =   =')
+print('  ---')
+
+
+
+1.19 LAB: Formatted output: No parking sign
+###
+Write a program that prints a formatted "No parking" sign. Note the first line has two leading spaces. For ALL labs, end with 
+newline (unless otherwise stated).
+
+  NO PARKING
+1:00 - 5:00 a.m.
+###
+# Type your code here.
+print('  NO PARKING')
+print('1:00 - 5:00 a.m.')
+
+
+
+1.20 LAB: Input: Welcome message
+###
+Write a program that takes a first name as the input, and outputs a welcome message to that name.
+
+Ex: If the input is Pat, the output is:
+
+Hello Pat and welcome to CS Online!
+###
+# Type your code here.
+userName = input()
+print('Hello', userName, 'and welcome to CS Online!')
+
+
+
+1.21 LAB: Input: Mad Lib
+###
+Mad Libs are activities that have a person provide various words, which are then used to complete a short story in unexpected 
+(and hopefully funny) ways. Complete the program to read the needed values from input, that the existing output statement(s) can use 
+to output a short story.
+###
+''' Type your code here. '''
+firstName = input()
+genericLocation = input()
+wholeNumber = int(input())
+pluralNoun = input()
+print(firstName, 'went to', genericLocation, 'to buy', wholeNumber, 'different types of', pluralNoun)
+
+
+
+1.22 Ch 1 Program: ASCII art 2 (Python 3)
+###
+This zyLab activity is the traditional programming assignment, typically requiring a few hours over a week. The previous sections 
+provide warm up exercises intended to help a student prepare for this programming assignment.
+
+
+
+(1) Output this X. (Submit for 2 points).
+
+\     /
+ \   /
+  \ /
+   X
+  / \
+ /   \
+/     \
+
+(2) Below the X (with two blank lines), output this Y. (Submit for 3 points, so 5 points total).
+
+\     /
+ \   /
+  \ /
+   Y
+   |
+   |
+   |
+Hint: A backslash \ in a string acts as an escape character, such as with a newline \n. So, to print an actual backslash, escape 
+that backslash by prepending another backslash. Ex: The following prints a single backslash: print('\\')
+###
+# Type your code here
+print('\\     /')
+print(' \\   /')
+print('  \\ /')
+print('   X')
+print('  / \\')
+print(' /   \\')
+print('/     \\')
+print('')
+print('')
+print('\\     /')
+print(' \\   /')
+print('  \\ /')
+print('   Y')
+print('   |')
+print('   |')
+print('   |')
+ 

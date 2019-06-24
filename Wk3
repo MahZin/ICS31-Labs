@@ -1,0 +1,657 @@
+3.11 ZyLab: List Basics - reading and printing
+###
+Write a program to read a list of integers with 5 elements and print the list.
+
+Ex.: if the input is
+
+1 
+2 
+4 
+3 
+5
+
+The output is
+
+[1, 2, 4, 3, 5]
+
+Then print the following sentence using a single print statement, replacing the numbers with the appropriate values from your list:
+
+The smallest number is 1, the highest number is 5, and the average is 3.00.
+###
+num1 = int(input())
+num2 = int(input())
+num3 = int(input())
+num4 = int(input())
+num5 = int(input())
+num_list = [num1, num2, num3, num4, num5]
+print(num_list)
+print(
+  'The smallest number is %d,' % min(num_list),
+  'the highest number is %d,' % max(num_list),
+  'and the average is', '%.2f.' % (sum(num_list)/len(num_list))
+  )
+  
+  
+  
+3.12 ZyLab: List Basics - Slicing
+###
+Read the inputs and create a list with 5 numbers and print it: 1 2 3 4 4
+
+[1, 2, 3, 4, 4]
+
+Now, print only the first 3 elements of your list using slicing.
+
+[1, 2, 3]
+
+Now, print the last 2 elements of your list using negative indexing.
+
+[4, 4]
+
+Read another input from the user and find the number of occurrences of that number on the previously created list. 4
+
+The number 4 appears 2 time(s) in the list.
+
+P.S.: Loops are not allowed for solving this question.
+###
+num1 = int(input())
+num2 = int(input())
+num3 = int(input())
+num4 = int(input())
+num5 = int(input())
+numList = [num1, num2, num3, num4, num5]
+print(numList)
+print(numList[0:3])
+print(numList[3:])
+val = int(input())
+print('The number', val, 'appears', numList.count(val), 'time(s) in the list.')
+
+
+
+3.13 ZyLab: Tuples - Tuplenigma
+###
+Suppose now you are working for a secret agency whose members are required to communicate in coded ciphers.
+
+As a member of their technical team, you are asked to develop a decoding program which decodes the encoded cipher when correct 
+encoding scheme is provided.
+
+The insecure cipher used in this secret agency:
+
+Cipher-texts are represented in Python tuples as you may have expected.
+Each cipher-text tuple contains a sequence of single characters
+An example of cipher-text is shown below:
+
+('a', 'a', 'a', 'a', 'a', 'a', 'b', 'c', 'd', 'f', 'z', '1')
+
+To decode an encrypted tuple, two inputs are required: cipher-text tuple and encryption key. Plain-text message associated with any 
+valid cipher-text is an integer, according to the protocol.
+
+Please build a program which takes in 1) a tuple and 2) one single character. The program should print out an integer once the message 
+is decoded.
+
+Sample input/output is shown below:
+
+Please enter a cipher-text (as a tuple):
+('a', 'a', 'a', 'a', 'a', 'a', 'b', 'c', 'd', 'f', 'z', '1')
+Please enter a key character:
+a
+The secret message is 6
+
+Please note that cipher-texts are defined to be case-sensitive. Cipher-text characters can be any combination of characters in 
+string.ascii_letters + string.punctuation (abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"#$%&'()*+,-./:;<=>?@[]^_`{|}~)
+###
+ciphertext = input()
+print('Please enter a cipher-text (as a tuple):')
+
+val = input()    
+print('Please enter a key character:')
+print('The secret message is', ciphertext.count(val))
+
+
+
+3.14 ZyLab: NamedTuples - Creation
+###
+1. Read the section Named tuples in 3.1 List basics
+2. Import the namedtuple package in Python
+3. Construct the Student namedtuple with fields name, major, year, id, and gpa
+4. Create 2 students with the following information for their named fields:
+
+name= “Kenneth”, major=“Computer Science”, year=6, id=987654321, gpa=3.8
+name=“Maegan”, major=“Neuroscience”, year=4, id=123456789, gpa=3.4
+
+5. Print out the students
+###
+from collections import namedtuple
+Student = namedtuple('Student',('name','major','year','id','gpa'))
+Kenneth = Student('Kenneth','Computer Science', 6, 987654321, 3.8)
+Maegan = Student('Maegan','Neuroscience',4,123456789,3.4)
+print(Kenneth)
+print(Maegan)
+
+
+
+3.15 ZyLab: Dictionaries - Updated Phonebook
+###
+Kenneth bought a new phone and added two of his friends' numbers to his phonebook. However, he forgot to transfer the phonebook from his previous phone beforehand.
+
+You must help Kenneth keep the most up-to-date phone numbers for all his friends on his new device. That is, if there is a number saved on both old and new devices for the same friend, you should keep the number saved on the new phone; or if there is only one phone number for a friend, you should keep it, regardless of which device contains it.
+
+To achieve this:
+
+First you need to create a dictionary with his old phonebook, which is presented below:
+
+Name	Phone #
+Maegan	1
+McCulloch	2
+Cindy	3
+
+Second, you need to ask for the name and phone number of the two friends he added;
+
+Third, you need to update the phone numbers for the friends added;
+
+Finally, display the updated phonebook.
+
+EXAMPLE:
+
+If the input is:
+
+Maegan
+4
+Chang
+5
+
+The updated phonebook should be:
+
+{'Maegan': '4', 'McCulloch': '2', 'Cindy': '3', 'Chang': '5'}
+
+HINT: Consider that phonebooks are stored as dictionaries, where the key is the contact's name and the value is the contact's phone 
+number.
+
+HINT: Assume names and phone numbers are strings.
+###
+phonebook = {
+    'Maegan': '1',
+    'McCulloch': '2',
+    'Cindy': '3'
+}
+name1 = input()
+number1 = (input())
+name2 = input()
+number2 = (input())
+phonebook[name1] = number1
+phonebook[name2] = number2
+print(phonebook)
+
+
+
+3.16 LAB: Miles to track laps
+###
+One lap around a standard high-school running track is exactly 0.25 miles. Write a program that takes a number of miles as input, and outputs the number of laps.
+
+Ex: If the input is 1.5, the output is:
+
+6.0
+
+Ex: If the input is 2.2, the output is:
+
+8.8
+
+Your program must define and call the following function:
+def MilesToLaps(userMiles)
+###
+def MilesToLaps(userMiles):
+    numLaps = userMiles / 0.25;
+    return numLaps
+
+if __name__ == '__main__':
+    userMiles = float(input())
+    numLaps = MilesToLaps(userMiles)
+    MilesToLaps(userMiles)
+    print(numLaps)
+
+
+
+3.17 LAB: Driving cost - functions
+###
+Write a function DrivingCost with input parameters drivenMiles, milesPerGallon, and dollarsPerGallon, that returns the dollar cost to 
+drive those miles.
+
+Ex: If the function is called with 50 20.0 3.1599, the function returns 7.90.
+
+Define that function in a program whose inputs are the car's miles/gallon and the gas dollars/gallon (both floats). Output the gas 
+cost for 10 miles, 50 miles, and 400 miles, by calling your DrivingCost function three times.
+
+Ex: If the input is:
+
+20.0
+3.1599
+
+Then the output is:
+
+1.57995
+7.89975
+63.198
+
+Your program must define and call the following function:
+def DrivingCost(drivenMiles, milesPerGallon, dollarsPerGallon)
+
+Note: This is a lab from a previous chapter that now requires the use of a function. Use string formatting to print only 2 decimals for 
+your result.
+###
+def DrivingCost(drivenMiles, milesPerGallon, dollarsPerGallon):
+    DrivingCost = (dollarsPerGallon * drivenMiles) / milesPerGallon
+    return DrivingCost
+if __name__ == '__main__':
+    milesPerGallon = float(input())
+    dollarsPerGallon = float(input())
+    drivenMiles = 10
+    print('%.2f' % DrivingCost(drivenMiles, milesPerGallon, dollarsPerGallon))
+    drivenMiles = 50
+    print('%.2f' % DrivingCost(drivenMiles, milesPerGallon, dollarsPerGallon))
+    drivenMiles = 400
+    print('%.2f' % DrivingCost(drivenMiles, milesPerGallon, dollarsPerGallon))
+
+
+
+3.18 LAB: Step counter
+###
+A pedometer treats walking 2,000 steps as walking 1 mile. Write a program whose input is the number of steps, and whose output is the 
+miles walked.
+
+Ex: If the input is 5345, the output is:
+
+2.67
+
+Your program must define and call the following function:
+def StepsToMiles(userSteps)
+###
+def StepsToMiles(userSteps):
+    milesWalked = userSteps / 2000
+    return milesWalked
+if __name__ == '__main__':
+    userSteps = int(input())
+    milesWalked = StepsToMiles(userSteps)
+    print("{:.2f}".format(milesWalked))
+
+
+
+3.19 LAB: Drone delivery
+###
+Suppose you are building a robot (drone) capable of delivering e-commerce packages to customers' homes.
+
+As a developer, you are instructed to create a Python program to translate names on orders into locations (coordinates, represented as 
+tuples) so the delivering team can program everything into the drones without any hassles of looking up an address book.
+
+Suppose you are provided with following customer names and address pairs:
+Customer Name	  Address
+Alice	(92617, 10, 1200)
+Bob	(92617, 10, 8320)
+Cindy	(92630, 15, 2550)
+Wang	(91250, 24, 3205)
+Chang	(91450, 61, 9982)
+Lee	(91750, 92, 6420)
+Steve	(91250, 89, 7102)
+Turing	(96250, 57, 8311)
+Fourier	(90318, 83, 9158)
+McCulloch	(94832, 29, 6204)
+Tanaka	(95623, 38, 4311)
+Ichiro	(93324, 13, 10056)
+Shohei	(90125, 24, 2309)
+
+Note that address is encoded as a 3-tuple where the first element holds zip-code (int), the second entry holds an encoded number of 
+street name (int), and the last entry is the street number (int).
+
+Can you create a list of tuples when supplied with 5 customer names?
+
+Program description:
+Task 1: Build a Customer Name/Address dictionary
+
+  1. From the Customer Name/Address table above, build a dictionary of key/value pairs as specified: The customer name is the key, 
+     and the value is the coordinate tuple.
+
+Task 2: Build a List of Customer Tuples
+
+1. Your program takes in 5 customer names from user input (with exact formatting as indicated below)
+2. For each customer, add the coordinates into a list.
+3. Print the list out with exact formatting as indicated below
+
+Sample print-out:
+When input is
+
+Alice
+Bob
+Cindy
+Wang
+Chang
+
+Standard output exactly matches
+
+Enter customer 1's name:
+Enter customer 2's name:
+Enter customer 3's name:
+Enter customer 4's name:
+Enter customer 5's name:
+Routing addresses are:
+[(92617, 10, 1200), (92617, 10, 8320), (92630, 15, 2550), (91250, 24, 3205), (91450, 61, 9982)]
+###
+if __name__== "__main__":
+    customers = {
+        'Alice' : (92617, 10, 1200),
+        'Bob' : (92617, 10, 8320),
+        'Cindy' : (92630, 15, 2550),
+        'Wang' : (91250, 24, 3205),
+        'Chang' :	(91450, 61, 9982),
+        'Lee' : (91750, 92, 6420),
+        'Steve' : (91250, 89, 7102),
+        'Turing' : (96250, 57, 8311),
+        'Fourier' : (90318, 83, 9158),
+        'McCulloch' : (94832, 29, 6204),
+        'Tanaka' : (95623, 38, 4311),
+        'Ichiro' : (93324, 13, 10056),
+        'Shohei' : (90125, 24, 2309)
+    }
+    
+    print("Enter customer 1's name:")
+    print("Enter customer 2's name:")
+    print("Enter customer 3's name:")
+    print("Enter customer 4's name:")
+    print("Enter customer 5's name:")
+    print("Routing addresses are:")
+    customerList = []
+    customer1 = customers[input()]
+    customer2 = customers[input()]
+    customer3 = customers[input()]
+    customer4 = customers[input()]
+    customer5 = customers[input()]
+    customerList.append(customer1)
+    customerList.append(customer2)
+    customerList.append(customer3)
+    customerList.append(customer4)
+    customerList.append(customer5)
+    print(customerList)
+
+
+
+3.20 LAB: Chopped factorial
+###
+Write a function called chop that takes as input a list of size n >2, and returns a new list without the original first and last 
+elements. For example, if the input is:
+
+[1,2,3,4,5]
+
+Your function should return
+
+[2,3,4]
+
+Then, based on the new list print the following lines, adjusting the numbers accordingly:
+
+There are 3 elements in the following chopped list: [2, 3, 4].
+The sum of its elements is 9 and the factorial of the sum is 362880.
+HINT: There is a factorial function in the math module.
+
+Note: In Python, lists are passed by reference, so for your function chop to work properly you need to make a copy of the original 
+list, either by slicing it, which creates a copy implicitly, or by creating a copy explicitly inside your function:
+
+lista2 = lista.copy()
+###
+def chop(lista):
+   lista.pop(0)
+   lista.pop(len(lista)-1)
+   return lista
+
+if __name__ == "__main__":
+    lista = [int(x) for x in input().split()] 
+    chop(lista)
+    import math
+    print('There are', len(lista), 'elements in the following chopped list:', str(lista) + '.')
+    print('The sum of its elements is', sum(lista), 'and the factorial of the sum is', str(math.factorial(sum(lista))) + '.')
+
+
+
+3.21 ZyLab: NamedTuples 2 - Functional
+1. Complete Creation
+2. Copy your solution from Creation to here but delete the print statements
+3. Make an empty list. The list will be used to store Student namedtuples
+4. Add Kenneth and Maegan to the list
+5. Create a funtion makeStudent(studentlist) where studentlist is your list of Student namedtuples 
+   The function should do the following:
+   Take user input for each of the fields of the namedtuple Create a Student namedtuple using the input Add the Student to studentlist
+6. Call makeStudent 3 times
+7. Print student_list
+8. Print Students whose list positions are odd in student_list
+
+Ex. input:
+
+Zero 2
+Robotics
+2
+002
+4.0
+Kagari
+Linguistics
+1
+7777777
+2.7
+Ryuko
+Physics
+3
+3611002436
+3.5
+###
+from collections import namedtuple
+
+Student = namedtuple('Student', ('name', 'major', 'year', 'id', 'gpa'))
+Kenneth = Student('Kenneth', 'Computer Science', 6, 987654321, 3.8)
+Maegan = Student('Maegan', 'Neuroscience', 4, 123456789, 3.4)
+
+studentList_empty = []
+studentList_empty.append(Kenneth)
+studentList_empty.append(Maegan)
+
+
+def makeStudent(
+    student_list, student_name, student_major,
+        student_year, student_id, student_gpa):
+            student_name = Student(student_name, student_major,
+                                   student_year, student_id, student_gpa)
+            student_list.append(student_name)
+            return student_list
+
+studentName1 = input()
+studentMajor1 = input()
+studentYear1 = int(input())
+studentId1 = int(input())
+studentGpa1 = float(input())
+studentName2 = input()
+studentMajor2 = input()
+studentYear2 = int(input())
+studentId2 = int(input())
+studentGpa2 = float(input())
+studentName3 = input()
+studentMajor3 = input()
+studentYear3 = int(input())
+studentId3 = int(input())
+studentGpa3 = float(input())
+makeStudent(studentList_empty, studentName1, studentMajor1,
+            studentYear1, studentId1, studentGpa1)
+makeStudent(studentList_empty, studentName2, studentMajor2,
+            studentYear2, studentId2, studentGpa2)
+makeStudent(studentList_empty, studentName3, studentMajor3,
+            studentYear3, studentId3, studentGpa3)
+print(studentList_empty)
+print(studentList_empty[1])
+print(studentList_empty[3])
+
+
+
+3.22 ZyLab: NamedTuples 3 - Complete
+###
+Now that we have a list of Students we're going to make some functions that will allow us to update the student's information and get 
+some stats about them.
+1. Copy Functional code within the provided template. Pay attention to the comments when copying and pasting since you will be 
+reorganizing your code based on the template.
+2. Create the following functions:
+
+setGPA(student, val): student is a single Student namedtuple, val is a float. The function sets the student's gpa = val and returns 
+the student
+
+setMajor(student, val): Same as setGPA except val is a string. The function sets the student's major = val and returns the student
+
+setYear(student, val): Same as setMajor except val is an int. The function sets the student's year = val and returns the student
+
+averageGPA(student_list): student_list is the list of Student namedtuples. The function returns the average gpa of the students.
+
+getTopStudentGPA(student_list): student_list is the list of Student namedtuples. The function returns the highest gpa of the students 
+in student_list.
+
+3. Print out what the average gpa of the students are and then print out the top student's gpa.
+4. Maegan's information needs to be updated. Do the following:
+
+Change Maegan's gpa to 4.0
+
+Change Maegan's major to 'Computational Neuroscience'
+
+Change Maegan's year to 5
+
+5. Repeat 3.
+
+HINT: for the setGPA, setMajor, and setYear functions you will need to use the x._replace() method as follows:
+
+    student = student._replace(gpa = val)
+
+HINT: For functions averageGPA and getTopStudentGPA, assume that there will only be 5 students in student_list
+###
+from collections import namedtuple
+
+Student = namedtuple('Student', ['name', 'major', 'year', 'id', 'gpa'])
+Kenneth = Student("Kenneth", "Computer Science", 6, 987654321, 3.8)
+Maegan = Student("Maegan", "Neuroscience", 4, 123456789, 3.4)
+
+studentList_empty = []
+studentList_empty.append(Kenneth)
+studentList_empty.append(Maegan)
+
+
+def makeStudent(
+    student_list, student_name, student_major,
+        student_year, student_id, student_gpa):
+            student_name = Student(student_name, student_major,
+                                   student_year, student_id, student_gpa)
+            student_list.append(student_name)
+            return student_list
+
+
+def setGPA(student, val):
+    student = student._replace(gpa=val)
+    return student
+
+
+def setMajor(student, val):
+    student = student._replace(major=val)
+    return student
+
+
+def setYear(student, val):
+    student = student._replace(year=val)
+    return student
+
+
+def averageGPA(student_list):
+    gpa = [student_list[0].gpa, student_list[1].gpa, student_list[2].gpa,
+           student_list[3].gpa, student_list[4].gpa]
+    avgGPA = sum(gpa) / len(gpa)
+    return avgGPA
+
+
+def getTopStudentGPA(student_list):
+    gpa = [student_list[0].gpa, student_list[1].gpa, student_list[2].gpa,
+           student_list[3].gpa, student_list[4].gpa]
+    maxGPA = max(gpa)
+    return maxGPA
+
+if __name__ == "__main__":
+    studentName1 = input()
+    studentMajor1 = input()
+    studentYear1 = int(input())
+    studentId1 = int(input())
+    studentGpa1 = float(input())
+    studentName2 = input()
+    studentMajor2 = input()
+    studentYear2 = int(input())
+    studentId2 = int(input())
+    studentGpa2 = float(input())
+    studentName3 = input()
+    studentMajor3 = input()
+    studentYear3 = int(input())
+    studentId3 = int(input())
+    studentGpa3 = float(input())
+    makeStudent(studentList_empty, studentName1, studentMajor1,
+                studentYear1, studentId1, studentGpa1)
+    makeStudent(studentList_empty, studentName2, studentMajor2,
+                studentYear2, studentId2, studentGpa2)
+    makeStudent(studentList_empty, studentName3, studentMajor3,
+                studentYear3, studentId3, studentGpa3)
+
+    print(studentList_empty)
+    print(studentList_empty[1])
+    print(studentList_empty[3])
+    print(averageGPA(studentList_empty))
+    print(getTopStudentGPA(studentList_empty))
+
+    Maegan_update = setGPA(Maegan, 4.0)
+    y = setMajor(Maegan, 'Computational Neuroscience')
+    z = setYear(Maegan, 5)
+    studentList_empty.remove(Maegan)
+    studentList_empty.append(Maegan_update)
+
+    print(averageGPA(studentList_empty))
+    print(getTopStudentGPA(studentList_empty))
+
+
+
+3.23 ZyLab: Dictionaries 2 - Where is the party?
+###
+A friend of Kenneth's invited him to a party but forgot to give him the address. Luckily, Kenneth is very organized and has two 
+dictionaries, one that contains names and phone numbers; and another one that contains phone numbers and addresses.
+
+However, Kenneth needs your help to make it easier to find an address from a name.
+
+To achieve this, you will create a function called phone2address that takes three parameters:
+
+-the first one is a dictionary that has names as keys and phone numbers as values;
+-the second one is a dictionary that has phone numbers as keys and addresses as values;
+-the third one is a string with a friend's name.
+
+To complete this function, you need to:
+
+-First, use the phonebook and friend's name to find the desired phone number;
+-Second, use the phone number and address book to find the correct address;
+-Finally, you should return the address.
+
+EXAMPLE:
+
+If the parameters are:
+
+phonebook = {'Maegan': 123, 'Einstein': 456, 'Pele': 789}
+address_book = {123: 'US', 456: 'GER', 789: 'BRA'}
+friend = 'Pele'
+
+Your function should return:
+
+BRA
+###
+def phone2address(phonebook, address_book, friend):
+    phonebook = {'Maegan': 123, 'Einstein': 456, 'Pele': 789, 'James': '007'}
+    address_book = {123: 'US', 456: 'GER', 789: 'BRA', '007': 'UK'}
+    friend2number = phonebook[friend]
+    address = address_book[friend2number]
+    return address
+
+if __name__ == '__main__':
+    phones = {'Maegan': 1, 'Einstein': 2, 'Pele': 3, 'James': 4}
+    addresses = {1: 'US', 2: 'GER', 3: 'BRA', 4: 'UK'}
+    name = input()
+
+    address = phone2address(phones, addresses, name)
+
+    print(address)
+

@@ -1,0 +1,699 @@
+6.11 LAB: Roboticist
+###
+You are a Roboticist working on an algorithm to let a new Roomba cleaning robot know which places are dirty in it's environment.
+
+The first number is the number of lists making up the environment. The Roomba's environment is simplified as a string of inputs, with 
+'c' indicating somewhere clean, and 'd' indicating somewhere dirty and 'r' indicating the current position of the roomba as follows:
+
+2
+rdcdc
+dcccd
+
+The Roomba can take the following actions:
+
+right
+left
+down
+clean
+
+The directions are moves the Roomba can take in the specified direction, and clean is the action the Roomba takes to clean a dirt spot.
+
+Create a function called ToClean(environ) that takes a nested list of strings as inputs and returns a list of strings where the list is 
+the order of actions the robot needs to take to clean the environment.
+
+You only need to have the robot clean the dirty spaces in the order they appear in the environ from left to right up to down.
+
+For example, if the input is:
+
+2
+rdcdc
+dcccd
+
+This can be represented as a coordinate grid using a list of lists. For example,
+
+[[0,0] , [0,1], [0,2], [0,3], [0,4], 
+ [1,0] , [1,1], [1,2], [1,3], [1,4]]
+ 
+Then the output would be:
+
+['right', 'clean', 'right', 'right', 'clean', 'left', 'left', 'left', 'down', 'clean', 'right', 'right', 'right', 'right', 'clean']
+
+Hints
+1. The Roomba always starts in the upper left corner (position [0,0])
+2. Get the locations of the dirty spaces first, then loop through those to decide the Roomba’s actions For example, the dirty 
+coordinates above are:
+
+[[0,1], [0,3],
+ [1,0], 1,4]]
+ 
+3. Use the location of the Roomba in relation to the dirty space locations to decide the actions For example, if the Roomba starts at 
+[0,0] and the next coordinate in the dirty list is [0,1] you can see that [0,0] The 0 in bold is less than [0,1] the 1 in bold, which 
+indicates the robot must go right.
+
+Similarly, if the Roomba is at [0,3] and the next dirty space is [1,0] since 3 > 0 the Roomba must go left 3 times, and since 0 < 1 the 
+Roomba must go down 1 time.
+
+4. You should not modify the input lists to get the actions. Simply make variables to reference the locations in the input lists.
+###
+# ToClean function
+def ToClean(environ):
+    # list to append coordinates
+    l = []
+    # assign variables
+    a = 0
+    b = 0
+    # list to append instructions
+    instr = []
+    # list to append output
+    action_list = []
+    # iterating through every element in the environ list
+    for i in environ:
+        # iterating through every element in the list of lists
+        for j in i:
+            # adding instruction to list
+            instr.append(j)
+            c = []
+            # coordinates
+            c.append(a)
+            c.append(b)
+            # adding coordinates to the list
+            l.append(c)
+            b = b+1
+        # coordinates
+        b = 0
+        a += 1
+
+    j = 0
+    b = 0
+    # iterating through each instruction
+    for i in instr:
+        # if instruction is 'dirty'
+        if (i == 'd'):
+            # if it is not in 0,0 coordinate i.e. 0,0 is for current position
+            if (j != 0):
+                # taking coordinates
+                a = l[j]
+                # if it's 2nd coordinate then b is 1st coordinate
+                if (b == 0):
+                    b = l[j-1]
+                # while current position is left to the 'dirty' position
+                while(a[1] > b[1]):
+                    action_list.append('right')
+                    b[1] = b[1] + 1
+                # while current position is right and up from 'dirty' position
+                while(a[1] < b[1]):
+                    while(a[1] < b[1]):
+                        b[1] = b[1]-1
+                        action_list.append('left')
+                    action_list.append('down')
+            # taking previous 'dirty' position
+            b = a
+            action_list.append('clean')
+        j = j + 1
+    # returning the list output
+    return action_list
+
+
+if __name__ == '__main__':
+    environ = []
+    lst_dim = int(input())
+    for i in range(lst_dim):
+        lstinput = list(input())
+        environ.append(lstinput)
+
+    print(ToClean(environ))
+# easiest lab ever
+
+
+
+6.12 LAB: Sieve of Eratosthenes
+###
+In this lab, you are going to implement "Sieve of Eratosthenes" (SoE) into a Python function.
+
+The input of SoE is an integer n, which denotes the maximum integer you are going to test whether or not every integer less than or 
+equal to this number is a prime number.
+
+The algorithm of SoE is described as follows (Photo credit: Wikipedia https://en.wikipedia.org/wiki/SieveofEratosthenes#/media/File:SieveofEratosthenes_animation.gif):
+
+First of all, a prime number is a natural number that has exactly two distinct natural number divisors: 1 and itself.
+
+To find all the prime numbers less than or equal to a given integer n by Eratosthenes' method:
+
+Below is what you need to implement in function SieveOfEratosthenes()
+
+- Create a list, or preferably a Python dictionary, corresponds to consecutive integers from 2 through n: (2, 3, 4, …, n). You might want 
+to initialize what you've just created with a long array of Boolean True values to denote that all integers are initially assumed to be 
+prime numbers (and sift away composite numbers in the following steps). For dictionaries, key the dictionary with (2, 3,4,…,n) and 
+intialize all values to True.
+
+prime_number_table = [True for _ in range(2, n+1) ] # This is a list comprehension example.
+prime_number_table = {k: True for k in range(2, n+1) } # This is a dictionary comprehension example.
+
+- Initially, let p equal 2, the smallest prime number.
+- Enumerate the multiples of p by counting to n from 2p in increments of p, and mark them in the list (these will be 2p, 3p, 4p, …; 
+the p itself should not be marked). For example, whenever you find the first prime number "2," it automatically follows that all 
+multiples of 2 are composite numbers (i.e. the exact opposite of prime number). So mark 4, 6, 8, 10, 12 as False in your list or 
+dictionary. Repeat the process whenever you find another prime number.
+
+# Following code snippet only works with one particular definition of prim_number_table provided above. 
+prime_number_table[2*2] = False
+prime_number_table[2*3] = False
+prime_number_table[2*4] = False
+prime_number_table[2*5] = False
+...
+The second round of sifting away composite number should do:
+
+# Following code snippet only works with one particular definition of prim_number_table provided above. 
+prime_number_table[3*2] = False
+prime_number_table[3*3] = False
+prime_number_table[3*4] = False
+prime_number_table[3*5] = False
+...
+
+- Find the first number greater than p in the list that is not marked. If there was no such number, stop. Otherwise, let p now equal this 
+new number (which is the next prime), and repeat from step 3.
+- When the algorithm terminates, the numbers remaining not marked in the list are all the primes below n.
+Example of input-output pair is shown below:
+
+When input is
+
+10
+
+Your program is expected to output:
+
+[2, 3, 5, 7]
+
+When input is
+
+100
+
+Your program is expected to output:
+
+[2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]\n
+
+Since the list of prime number starts from 2. Whenever you get an input less than 2, return "invalid input"
+
+When input is
+
+1
+
+Your program is expected to output:
+
+invalid input
+
+In addition, your program should reject any invalid user input by print out "invalid input" whenever it receives a floating point 
+number or any other input which doesn't make sense to "Sieve of Eratosthenes"
+
+When input is
+
+3.7
+
+Your program is expected to output:
+
+invalid input
+###
+def SieveOfEratosthenes(n):
+    # Create a boolean array "prime[0...n]"
+    # Go through each value
+    # A value in prime[i] will be false if i not prime, else true
+    if n < 2:
+        print("invalid input")
+    elif n == 2:
+        results.append(n)
+        print(results)
+    elif n == 3:
+        x = 2
+        y = 3
+        results.append(x)
+        results.append(y)
+        print(results)
+    else:
+        prime = [True for i in range(n+1)]
+        p = 2
+        while (p * p <= n):
+
+            # If prime[p] is not changed, then it's a prime
+            if prime[p] is True:
+
+                # Updating all multiples of p
+                for i in range(p * 2, n+1, p):
+                    prime[i] = False
+            p += 1
+
+    # Print all prime numbers
+        for p in range(2, n+1):
+            if prime[p]:
+                results.append(p)
+        print(results)
+
+if __name__ == '__main__':
+    results = []
+    while True:
+        try:
+            n = int(input())
+            SieveOfEratosthenes(n)
+            break
+        except:
+            print("invalid input")
+            break
+
+
+
+6.13 LAB: Authoring assistant; multiple returns
+###
+(1) Prompt the user to enter a string of their choosing. Store the text in a string. Output the string. (1 pt) 
+
+Ex:
+
+Enter a sample text:
+we'll continue our quest in space.  there will be more shuttle flights and more shuttle crews and,  yes;  more volunteers, more 
+civilians,  more teachers in space.  nothing ends here;  our hopes and our journeys continue!
+
+You entered: we'll continue our quest in space.  there will be more shuttle flights and more shuttle crews and,  yes;  more volunteers, 
+more civilians,  more teachers in space.  nothing ends here;  our hopes and our journeys continue!
+
+(2) Implement a print_menu() function, which has a string as a parameter, outputs a menu of user options for analyzing/editing the 
+string, and returns the user's entered menu option and the sample text string (which can be edited inside the print_menu() function). 
+Each option is represented by a single character.
+
+If an invalid character is entered, continue to prompt for a valid choice. Hint: Implement the Quit menu option before implementing 
+other options. Call print_menu() in the main section of your code. Continue to call print_menu() until the user enters q to Quit. (3 pts) 
+
+Ex:
+
+MENU
+c - Number of non-whitespace characters
+w - Number of words
+f - Fix capitalization
+r - Replace punctuation
+s - Shorten spaces
+q - Quit
+
+Choose an option:
+
+(3) Implement the get_num_of_non_WS_characters() function. get_num_of_non_WS_characters() has a string parameter and returns the number 
+of characters in the string, excluding all whitespace. Call get_num_of_non_WS_characters() in the print_menu() function. (4 pts) 
+
+Ex:
+
+Number of non-whitespace characters: 181
+
+(4) Implement the get_num_of_words() function. get_num_of_words() has a string parameter and returns the number of words in the string. 
+Hint: Words end when a space is reached except for the last word in a sentence. Call get_num_of_words() in the print_menu() function. 
+(3 pts) 
+
+Ex:
+
+Number of words: 35
+
+(5) Implement the fix_ capitalization() function. fix_ capitalization() has a string parameter and returns an updated string, where 
+lowercase letters at the beginning of sentences are replaced with uppercase letters. fix_ capitalization() also returns the number of 
+letters that have been capitalized. Call fix_ capitalization() in the print_menu() function, and then output the number of letters 
+capitalized and the edited string. Hint 1: Look up and use Python functions .islower() and .upper() to complete this task. 
+Hint 2: Create an empty string and use string concatenation to make edits to the string. (3 pts) 
+
+Ex:
+
+Number of letters capitalized: 3
+Edited text: We'll continue our quest in space.  There will be more shuttle flights and more shuttle crews and,  yes;  more volunteers, 
+more civilians,  more teachers in space.  Nothing ends here;  our hopes and our journeys continue!
+
+(6) Implement the replace_punctuation() function. replace_punctuation() has a string parameter and two keyword argument parameters 
+exclamationCount and semicolonCount. replace_punctuation() updates the string by replacing each exclamation point (!) character with a 
+period (.) and each semicolon (;) character with a comma (,). replace_punctuation() also counts the number of times each character is 
+replaced and outputs those counts. Lastly, replace_punctuation() returns the updated string. Call replace_punctuation() in 
+the print_menu() function, and then output the edited string. (3 pts) 
+
+Ex:
+
+Punctuation replaced
+exclamationCount: 1
+semicolonCount: 2
+Edited text: we'll continue our quest in space.  there will be more shuttle flights and more shuttle crews and,  yes,  more volunteers, 
+more civilians,  more teachers in space.  nothing ends here,  our hopes and our journeys continue.
+
+(7) Implement the shorten_space() function. shorten_space() has a string parameter and updates the string by replacing all sequences of 
+2 or more spaces with a single space. shorten_space() returns the string. Call shorten_space() in the print_menu() function, and then 
+output the edited string. Hint: Look up and use Python function .isspace(). (3 pt) 
+
+Ex:
+
+Edited text: we'll continue our quest in space. there will be more shuttle flights and more shuttle crews and, yes, more volunteers, 
+more civilians, more teachers in space. nothing ends here; our hopes and our journeys continue!
+
+Hints
+1. Use the __main__ statement whenever appropriate. Read section 2.5 - "Importing modules and executing scripts" if you are not 
+familiar with this.
+###
+import re
+
+
+# (4)
+def get_num_of_words(str):
+    # return number of words.
+    return len(str.split())
+
+
+# (3)
+def get_num_of_non_WS_characters(str):
+    # count all non whitespace characters
+    count = len(re.findall('[^ ]', str))
+    # return count
+    return count
+
+
+# (5)
+def fix_capitalization(str):
+    # convert first letter of string.
+    str1 = str[0].upper()
+    # Split the string.
+    l = str.split(".")
+    # empty string
+    tem = ""
+    c = 0
+    # start the for loop
+    for s in l:
+        # set the value of flag.
+        flag = True
+        # start the for loop.
+        for i in s:
+            # if statement
+            if(i == ' '):
+                # assigning value to variable.
+                tem += i
+            # else if statement
+            elif(flag):
+                # check whether the character is in lower case or not.
+                if(i.islower()):
+                    # Update the value of c.
+                    c = c + 1
+                    # convert the value in the upper case.
+                    tem += i.upper()
+                    # update the value of flag
+                    flag = False
+            else:
+                # assign value to variable.
+                tem += i
+        tem += '.'
+    # Display result
+    print ("Number of letters capitalized:", c)
+    # Display concatenated string.
+    print ("Edited text:", str1+tem[1:-1])
+    return str1+tem[1:-1], c
+
+
+# (6)
+def replace_punctuation(str, exclamationCount=0, semicolonCount=0):
+    # Define an empty string.
+    temp = ""
+    # start the for loop
+    for i in str:
+        # check exclamatory mark
+        if i == '!':
+            # update value
+            exclamationCount += 1
+            temp += '.'
+        # Check for semi colon
+        elif i == ';':
+            # Update value
+            semicolonCount += 1
+            temp += ','
+        else:
+            temp += i
+    # Display result
+    print ("Punctuation replaced")
+    print ("exclamationCount:", exclamationCount)
+    print ("semicolonCount:", semicolonCount)
+    print ("Edited text:", temp)
+    return temp
+
+
+# (7)
+def shorten_space(str):
+    return ' '.join(str.split())
+
+
+def print_menu():
+    menu = """\nMENU
+c - Number of non-whitespace characters
+w - Number of words
+f - Fix capitalization
+r - Replace punctuation
+s - Shorten spaces
+q - Quit
+"""
+    # (2) Start the while loop.
+    while(True):
+        # Prompt the user to enter an option.
+        c = input()
+        if(c == 'q'):
+            # Quit the program
+            break
+        elif(c == 'c'):
+            # Display number of non whitespace characters.
+            print(
+                "Number of non-whitespace characters:",
+                get_num_of_non_WS_characters(str)
+                )
+        elif(c == 'w'):
+            # Display number of words.
+            print ("Number of words:", get_num_of_words(str))
+        elif(c == 'f'):
+            # fix capitalization of Text.
+            fix_capitalization(str)
+        elif(c == 'r'):
+            # Replace punctuatuion
+            replace_punctuation(str)
+        elif(c == 's'):
+            # removes extra space
+            print ("Edited text:", shorten_space(str))
+        else:
+            # Display invalid input.
+            print ("Invalid Option, try again")
+
+    print(menu)
+    print("Choose an option:")
+
+if __name__ == '__main__':
+    # (1)Prompt the user to enter the text.
+    str = input("Enter a sample text:\n")
+    # Display the entered text.
+    print ("\nYou entered:", str)
+    # call menu
+    print_menu()
+
+
+
+6.14 LAB: Gi Tu Tong Long
+### 
+Programming Objectives
+Please note that "Gi Tu Tong Long"(雞兔同籠) in Chinese literally means "chickens and rabbits in a cage."
+
+Write a program to solve a classic ancient Chinese puzzle:
+
+We count 35 heads and 94 legs among the chickens and rabbits in a cage. How many rabbits and how many chickens do we have?
+
+Additional requirements on assertion statements are mandatory for getting full marks in this assignments. See instructions below.
+
+Technical Details
+The input output of your program should look like the examples shown below.
+
+When the inputs are
+
+31
+94
+
+outputs should be
+
+Input number of heads:
+Input number of legs:
+There are 15 chickens in the cage
+There are 16 rabbits in the cage
+
+Please note when you are printing the situation when there is not chicken in a cage, instead of printing "0 chick in the cage", 
+you should print
+
+There isn't any chicken in the cage
+
+Same thing applies to rabbits.
+
+In addition when there is only one single chicken in a cage, the expected output should be
+
+There is 1 chicken in the cage
+
+Similarly, this grammatical rule applies to rabbits.
+
+Additional Requirements
+The main functionality of your program should be implemented in a function named chick_rabbit, the function is expected to receive two 
+(2) input arguments and return two (2) output values. Output values are expected to be a 2-tuple where the first and second value
+denote the number of chickens and rabbits, respectively.
+
+def chicken_rabbit(num_heads, num_legs):
+    pass # delete this line and start coding here
+
+To evaluate your knowledge on assert statements, two additional functions are required in this assignment.
+
+To implement the first function, unittest_function_pass(), you need to put in several assert statements in the body of this function 
+such that this function goes over all relevant test-cases you can think of in validation of function "chicken_rabbit".
+
+def unittest_function_pass():
+    # write assertion statements here to test the function    
+    # enumerate as many test cases you can think of to test your function    
+    # See "Additional Requirements described in the assignment" for details.
+
+    pass # delete this line before you start to code something into the function
+
+Take the baking example from your midterm exam, following assert statements are valid ones which belong to unittest_function_pass()
+
+assert withdrawal(100, 10) == 10 # return original balance when withdrawal amount is greater than balance
+assert withdrawal(100, 1000) == 900 # return updated balance when withdrawal is successful
+
+# function definition shown below as a reference
+def withdrawal(amount, balance):
+    if amount > balance:
+          return balance
+    else:
+        return balance - amount
+        
+On the other hand, unittest_function_xfail() tests the expected failing cases. Sample assert statements for this category are
+
+assert withdrawal(100, 10) == 5 # numbers are off: this line will raise (trip) an 
+AssertionError if the function is implemented correctly
+assert withdrawal(100, 1000) == 930 # numbers are off: this line will raise (trip) 
+an AssertionError if the function is implemented correctly
+
+def unittest_function_xfail():
+    # write assertion statements here to test the function on any expected failing cases
+    # See "Additional Requirements described in the assignment" for details.
+
+    pass # delete this line before you start to code something into the function
+
+Hints
+Use for loop to iterate all possible solutions.
+###
+def chicken_rabbit(num_heads, num_legs):
+    n_chicken = 0
+    n_rabbit = 0
+
+    # from n_chicken is 0 to number of heads in the cage
+    for n_chicken in range(num_heads+1):
+        # n_rabbit is equal to num_heads minus n_chicken
+        n_rabbit = num_heads - n_chicken
+
+        # chicken = 2 legs, rabbit = 4 legs
+        # total legs = 2*n_chicken + 4*n_rabbit
+        if(((n_chicken*2) + (n_rabbit*4)) == num_legs):
+            # returning n_chicken and n_rabbit tuple
+            return (n_chicken, n_rabbit)
+    return (0, 0)
+
+
+def unittest_function_pass():
+    # write assertion statements here to test the function
+    # enumerate as many test cases you can think of to test your function
+    # See "Additional Requirements described in the assignment" for details.
+    assert chicken_rabbit(31, 94) == (15, 16)
+    assert chicken_rabbit(35, 94) == (23, 12)
+
+
+def unittest_function_xfail():
+    # write assertion statements to test function on any expected failing cases
+    # See "Additional Requirements described in the assignment" for details.
+    assert chicken_rabbit(31, 94) == (10, 21)
+    assert chicken_rabbit(35, 94) == (25, 10)
+
+if __name__ == "__main__":
+    num_heads = int(input("Input number of heads:\n"))
+    num_legs = int(input("Input number of legs:\n"))
+    # TODO: add print statements below.
+    if num_heads == 0 and num_legs == 0:
+        print("There isn't any chicken in the cage")
+        print("There isn't any rabbit in the cage")
+    else:
+        n_chicken, n_rabbit = chicken_rabbit(num_heads, num_legs)
+        if(n_chicken == 0) and (n_rabbit == 0):
+            print("Invalid inputs received. Program aborted.")
+
+        elif(n_chicken == 0) and (n_rabbit != 0):
+            print("There isn't any chicken in the cage")
+        if(n_chicken == 1):
+            print("There is 1 chicken in the cage")
+        if(n_chicken != 0) and (n_chicken != 1):
+            print("There are {0} chickens in the cage".format(n_chicken))
+
+        elif(n_rabbit == 0) and (n_chicken != 0):
+            print("There isn't any rabbit in the cage")
+        if(n_rabbit == 1):
+            print("There is 1 rabbit in the cage")
+        if(n_rabbit != 0) and (n_rabbit != 1):
+            print("There are {0} rabbits in the cage".format(n_rabbit))
+
+    # TODO: complete the unittest_function
+    unittest_function_pass()
+
+    # TODO: complete the unittest_function_xfail
+    # so your function undergo a rigorous unittest created by yourself
+    # Please note that unittest_function_xfail is ALWAYS expected
+    # to trip an error! Because it is testing on expected failing cases
+    unittest_function_xfail()
+
+
+
+6.15 LAB: Bank Withdrawal: add neg, add type tests...
+###
+A bank needs your help to make sure that their clients have the correct balance after withdrawing money. You will write a function to 
+perform the calculation, and then write an assert statement to verify that it's working.
+
+To achieve this, you need to:
+
+1. Write a function withdraw that calculates the balance of a bank account after a withdrawal. Your function should take two parameters as 
+argument, the original balance and the ammount to be withdrawn. If it is a valid withdraw, that is, the ammount is positive and less 
+than or equal to the balance, you should return the updated balance. Otherwise, you should return the original balance.
+
+withdraw(100,10) returns 90, while withdraw(10,15) returns 10
+
+2. Outside the function, prompt the user for two values, the balance and the ammount to be withdrawn. Then, print out the updated balance 
+X that your function returned:
+
+Updated balance: $X
+
+3. To make sure that your function works, prompt the user for the expected balance and assert that it matches the value you calculated. If 
+they don't match, your assertion error should have the following error message:
+
+The values don't match.
+
+4. Finally, print the message below:
+
+The updated balance matches the expected one.
+
+Hints
+Use the __main__ statement whenever appropriate. Read section 2.5 - "Importing modules and executing scripts" if you are not familiar 
+with this.
+###
+def withdraw(balance, amount):
+    if amount > balance:
+        return balance
+    else:
+        new_balance = balance - amount
+        return new_balance
+
+if __name__ == "__main__":
+    bal = float(input())
+    amt = float(input())
+    exp_balance = float(input())
+    if bal < amt:
+        if bal != exp_balance:
+            print("AssertionError: The values don't match.")
+        else:
+            assert withdraw(bal, amt) == bal
+            print("Updated balance: $%.1f" % withdraw(bal, amt))
+            print("The updated balance matches the expected one.")
+    elif (bal - amt) != exp_balance:
+        assert withdraw(bal, amt) != exp_balance
+        print("AssertionError: The values don't match.")
+    else:
+        assert withdraw(bal, amt) == exp_balance
+        print("Updated balance: $%.1f" % withdraw(bal, amt))
+        print("The updated balance matches the expected one.")
+
+

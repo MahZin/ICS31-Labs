@@ -1,0 +1,790 @@
+5.7 LAB: Drawing a half arrow
+###
+This program outputs a downwards facing arrow composed of a rectangle and a right triangle. The arrow dimensions are defined by user 
+specified arrow base height, arrow base width, and arrow head width.
+
+(1) Modify the given program to use a loop to output an arrow base of height arrow_base_height. (1 pt)
+
+
+
+(2) Modify the given program to use a loop to output an arrow base of width arrow_base_width. (1 pt)
+
+
+
+(3) Modify the given program to use a loop to output an arrow head of width arrow_head_width. (2 pts)
+
+
+
+(4) Modify the given program to only accept an arrow head width that is larger than the arrow base width. Use a loop to continue 
+prompting the user for an arrow head width until the value is larger than the arrow base width. (1 pt)
+
+while arrow_head_width <= arrow_base_width:
+    arrow_head_width = int(input('Enter arrow head width:\n'))
+
+
+Example output for arrow_base_height = 5, arrow_base_width = 2, and arrow_head_width = 4:
+
+Enter arrow base height:
+5
+Enter arrow base width:
+2
+Enter arrow head width:
+4
+
+**
+**
+**
+**
+**
+****
+***
+**
+*
+###
+arrow_base_height = int(input('Enter arrow base height:\n'))
+arrow_base_width = int(input('Enter arrow base width:\n'))
+arrow_head_width = int(input('Enter arrow head width:\n'))
+while arrow_head_width <= arrow_base_width:
+    arrow_head_width = int(input('Enter arrow head width:\n'))
+print('')
+
+w = arrow_base_width * '*'
+h = arrow_base_height
+while h > 0:
+    print(w)
+    h = h - 1
+
+j = arrow_head_width
+while j > 0:
+    print('*' * j)
+    j = j - 1
+
+
+
+5.8 LAB: Password modifier
+###
+Many user-created passwords are simple and easy to guess. Write a program that takes a simple password and makes it stronger by replacing characters using the key below, and by appending "q*s" to the end of the input string.
+
+i becomes !
+a becomes @
+m becomes M
+B becomes 8
+o becomes .
+
+Ex: If the input is mypassword, the output is:
+
+Myp@ssw.rdq*s
+###
+password = input()
+
+for i in password:
+    password = password.replace('i', '!')
+
+for a in password:
+    password = password.replace('a', '@')
+
+for m in password:
+    password = password.replace('m', 'M')
+
+for B in password:
+    password = password.replace('B', '8')
+
+for o in password:
+    password = password.replace('o', '.')
+
+password = password + ('q*s')
+print(password)
+
+
+
+5.9 LAB: Soccer team roster
+###
+This program will store roster and rating information for a soccer team. Coaches rate players during tryouts to ensure a balanced team. 
+Design Notes: Before you code, discuss each task with your partner and decide which data structure & loop iterator best suits each task.
+
+(1) Prompt the user to input five pairs of numbers: A player's jersey number (0 - 99) and the player's rating (1 - 9). Store the jersey 
+numbers and the ratings in a dictionary. Print the Roster 
+
+Ex:
+
+Enter player 1's jersey number:
+84
+Enter player 1's rating:
+7
+
+Enter player 2's jersey number:
+23
+Enter player 2's rating:
+4
+
+Enter player 3's jersey number:
+4
+Enter player 3's rating:
+5
+
+Enter player 4's jersey number:
+30
+Enter player 4's rating:
+2
+
+Enter player 5's jersey number:
+66
+Enter player 5's rating:
+9
+
+ROSTER
+Jersey number: 84, Rating: 7
+Jersey number: 23, Rating: 4
+Jersey number 4, Rating: 5
+...
+
+(2) Implement a menu of options for a user to modify the roster. Each option is represented by a single character. The program 
+initially outputs the menu, and outputs the menu after a user chooses an option. The program ends when the user chooses the option to 
+Quit. For this step, the other options do nothing. Hint: For code clarity, define the menu as a string towards the top of your file. 
+
+Ex:
+
+MENU
+a - Add player
+d - Remove player
+u - Update player rating
+o - Output roster
+q - Quit
+
+Choose an option:
+
+(3) Implement the "Output roster" menu option. 
+
+Ex:
+
+ROSTER
+Jersey number: 4, Rating: 5
+Jersey number: 23, Rating: 4
+Jersey number 30, Rating: 2
+...
+
+(4) Implement the "Add player" menu option. Prompt the user for a new player's jersey number and rating. Append the values to the 
+dictionary of players. 
+
+Ex:
+
+Enter a new player's jersey number:
+49
+Enter the player's rating:
+8
+
+(5) Implement the "Delete player" menu option. Prompt the user for a player's jersey number. Remove the player from the roster 
+(delete the jersey number and rating). 
+
+Ex:
+
+Enter a jersey number:
+4
+
+(6) Implement the "Update player rating" menu option. Prompt the user for a player's jersey number. Prompt again for a new rating for 
+the player, and then change that player's rating. 
+
+Ex:
+
+Enter a jersey number:
+23
+Enter a new rating for player:
+6
+###
+roster = {}
+num_pairs = 5
+menu = {
+    'a': 'Add player',
+    'd': 'Remove player',
+    'u': 'Update player rating',
+    'o': 'Output roster',
+    'q': 'Quit'
+}
+menu_item = ' '
+
+for i in range(num_pairs):
+    jersey_num = int(input('\nEnter player %d\'s jersey number:\n' % (i+1)))
+    player_rating = int(input('Enter player %d\'s rating:\n' % (i+1)))
+    roster[jersey_num] = player_rating
+
+print('\nROSTER')
+
+for rate, jersey in (roster.items()):
+    print('Jersey number: %d, Rating: %d' % (rate, jersey))
+
+while menu_item != 'q':
+    print('\nMENU')
+    for char, option in menu.items():
+        print('%s - %s' % (char, option))
+    user_char = input('\nChoose an option:')
+
+    if user_char == 'o':
+        print('\nROSTER')
+        for rate, jersey in (roster.items()):
+            print('Jersey number: %d, Rating: %d' % (rate, jersey))
+
+    if user_char == 'a':
+        new_jersey = int(input('\nEnter a new player\'s jersey number:\n'))
+        new_rating = int(input('Enter the player\'s rating:\n'))
+        roster[new_jersey] = new_rating
+
+    if user_char == 'd':
+        player_remove = int(input('\nEnter a jersey number:\n'))
+        del roster[player_remove]
+
+    if user_char == 'u':
+        update_jersey = int(input('Enter a jersey number: \n'))
+        update_rating = int(input('Enter a new rating for player: \n'))
+        roster.update({update_jersey: update_rating})
+
+    if user_char == 'q':
+        menu_item = 'q'
+
+
+
+5.10 LAB: Adjust values in a list by normalizing
+###
+When analyzing data sets, such as data for human heights or for human weights, a common step is to adjust the data. This can be done by 
+normalizing to values between 0 and 1, or throwing away outliers.
+
+Write a program that first gets a list of integers from input. The input begins with an integer indicating the number of integers that 
+follow. Then, adjust each integer in the list by subtracting the smallest value from all the integers.
+
+Ex: If the input is
+
+5
+30
+50
+10
+70
+65
+
+Then the output is:
+
+20
+40
+0
+60
+55
+
+The 5 indicates that there are five integers in the list, namely 30, 50, 10, 70, and 65. The smallest value in the list is 10, so the 
+program subtracts 10 from all integers in the list.
+###
+def minset(list_nums):
+    for i in list_nums:
+        min = 10000
+        for i in list_nums:
+            if i < min:
+                min = i
+    return min
+
+if __name__ == "__main__":
+    list_nums = []
+
+    inp_len = int(input())
+
+    for i in range(inp_len):
+        inp_num = int(input())
+        list_nums.append(inp_num)
+    minset(list_nums)
+    for i in list_nums:
+        print(i - minset(list_nums))
+
+
+
+5.11 LAB: Print name in reverse
+###
+Write a program that takes in a line of text as input, and outputs that line of text in reverse. The program repeats, ending when the 
+user enters "Quit", "quit", or "q" for the line of text.
+
+Ex: If the input is:
+
+Hello there
+Hey
+quit
+
+then the output is:
+
+ereht olleH
+yeH
+###
+inp = input()
+while (inp != 'Quit') and (inp != 'quit') and (inp != 'q'):
+    inp_reverse = inp[::-1]
+    print(inp_reverse)
+    inp = input()
+
+
+
+5.12 LAB: Reverse Only Letters
+###
+Programming Objectives
+Given a string S, return the "reversed" string where all characters that are not a letter stay in the same place, and all letters 
+reverse their positions.
+
+Example 1:
+
+Input: "ab-cd"
+Output: "dc-ba"
+
+Example 2:
+
+Input: "a-bC-dEf-ghIj"
+Output: "j-Ih-gfE-dCba"
+
+Example 3:
+
+Input: "Test1ng-ICS31@UCI.ICS=code-Q!"
+Output: "Qedo1cS-CII31@CUS.CIg=ntse-T!"
+
+Note:
+
+1. S.length <= 100
+2. 33 <= S[i].ASCIIcode <= 122
+3. S doesn't contain \ or "
+
+Technical Details
+A brief sketch of a working program is described below:
+
+First, you have to translate the original string into a dictionary, for example, when "abcd" is inputted, a helper function def 
+str2dict(input_string): should output {0: "a": 1: "b", 2: "c", 3: "d"}
+
+Second, figure out which characters are not "letters" by constructing another helper function def isCharLetter(input_char):. 
+To simplify implementation, membership operator "in" combined with python's built-in list of letters is highly recommended. 
+For example:
+
+import string
+print("a" in string.ascii_letters) # print out True
+print("?" in string.ascii_letters) # print out False
+
+To reverse the index for letter characters, iterate through the dictionary and record their original characters (keys) and indexes 
+(values) into two parallel lists. Using the same string as Example 1, the original dictionary representing the string "ab-cd" is
+
+translated_string = {0: "a", 1: "b", 2: "-", 3: "c", 4: "d"}
+
+the "value" list of letter characters is (See hint 4)
+
+letter_only_values = ["a", "b", "c", "d"]
+
+the "key" list of letter characters is (See hint 4)
+
+letter_only_keys = [0, 1, 3, 4]
+
+Note that letter_only_values and letter_only_keys are parallel lists.
+
+Use list reverse() method to reverse the index list and construct a letter only dictionary with indexes reversed
+
+letter_reversed = {4:"a", 3: "b", 1: "c", 0: "d"}
+
+Use dictionary update() method to update original "translated_string" dictionary
+
+translated_string.update(letter_reversed)
+# The update() method updates the dictionary with the elements from the another dictionary object or from an iterable of key/value pairs.
+
+translated_string becomes
+
+{4: "a", 3: "b", 2: "-", 1: "c", 0: "d"}
+
+Finally, you have a dictionary keyed by expected output indexes and their original characters associated with in the values. Print 
+the letter- reversed string after sorting the dictionary by "keys".
+
+Hints
+1. to sort a dictionary by key, use following statement:
+
+sorted_by_value = sorted(translated_string.items(), key=lambda kv: kv[0]) # try it out in IDLE and see how it works
+
+2. You may need to use str.join() method. Documentation available here: https://docs.python.org/3/library/stdtypes.html#str.join
+
+3. You may need to use dict.items() method. Try this:
+
+for k, v in some_dictionary.items():
+    print(k, v)
+    
+4. List comprehension may be a good idea in processing letter_only_keys and letter_only_values.
+###
+def isAlphabet(x):
+    return x.isalpha()
+
+
+def reverse(string):
+    LIST = toList(string)
+
+    r = len(LIST) - 1
+    l = 0
+
+    while l < r:
+        if not isAlphabet(LIST[l]):
+            l += 1
+        elif not isAlphabet(LIST[r]):
+            r -= 1
+        else:
+            LIST[l], LIST[r] = swap(LIST[l],
+                                    LIST[r])
+            l += 1
+            r -= 1
+    return toString(LIST)
+
+
+def toList(string):
+    List = []
+    for i in string:
+        List.append(i)
+    return List
+
+
+def toString(List):
+    return ''.join(List)
+
+
+def swap(a, b):
+    return b, a
+
+string = input()
+string = reverse(string)
+print(string)
+
+
+
+5.13 LAB: Intersection of two lists
+###
+Programming Objectives
+With two given lists, such as [1,3,6,78,35,55] and [12,24,35,24,88,120,155], write a program to make a list whose elements are 
+intersection (common) of the above given lists. Please note that redundant elements should be counted only once.
+
+Technical Descriptions
+Your program should interact with its user such that two lists of different number of elements can be arbitrarily specified through 
+program input.
+
+With the lists above as an example:
+
+Please specify the number of elements in the first list:
+6
+Please specify the number of elements in the second list:
+7
+Input element 1 of list 1:
+1
+Input element 2 of list 1:
+3
+Input element 3 of list 1:
+6
+Input element 4 of list 1:
+78
+Input element 5 of list 1:
+35
+Input element 6 of list 1:
+55
+Input element 1 of list 2:
+12
+Input element 2 of list 2:
+24
+Input element 3 of list 2:
+35
+Input element 4 of list 2:
+24
+Input element 5 of list 2:
+88
+Input element 6 of list 2:
+120
+Input element 7 of list 2:
+155
+
+The expected output should be
+
+[35]
+
+Hints
+1. Use set() data structure to find unique elements of a list.
+2. The output list at the end must be in ascending order.
+###
+if __name__ == "__main__":
+    list_num1 = []
+    list_num2 = []
+    inp_len1 = int(input('Please specify the number of '
+                         'elements in the first list:\n'))
+    inp_len2 = int(input('Please specify the number of '
+                         'elements in the second list:\n'))
+    for i in range(inp_len1):
+        i = str(i + 1)
+        inp_num = int(input('Input element '+i+' of list 1:\n'))
+        list_num1.append(inp_num)
+    for i in range(inp_len2):
+        i = str(i + 1)
+        inp_num = int(input('Input element '+i+' of list 2:\n'))
+        list_num2.append(inp_num)
+    set1 = set(list_num1)
+    set2 = set(list_num2)
+    set1 &= set2
+    list_int = list(set1)
+    list_int.sort(key=int)
+    print(list_int)
+
+
+
+5.14 LAB: Professor Jiraiya spreadsheet
+###
+Professor Jiraiya likes to keep the records for his class in a spreadsheet containing a list of student's IDs, names, labs, and scores. 
+Your task is to help professor Jiraiya build his spreadsheet and calculate the average scores of the students per lab and for the whole class.
+
+We suggest that you create a namedtuple Student to handle the inputs and a list for storing all the students. You may need to use 
+different structures to compute the averages per lab and per class.
+
+You first need to read the spreadsheet, student per student. For every student added print the current spreadsheet. For example, when 
+the input is:
+
+Y
+123
+John
+1
+67
+Y
+132
+Paul
+1
+75
+Y
+890
+George
+5
+100
+Y
+321
+Ringo
+2
+98
+N
+
+The output is:
+
+Do you want to add another student? (Y/N)
+What's his/her ID?
+What's his/her name?
+What's his/her lab?
+What's his/her score?
+
+Current spreadsheet:
+
+ID        NAME        LAB     SCORE
+123        John        1       67
+
+Do you want to add another student?  (Y/N)
+What's his/her ID?
+What's his/her name?
+What's his/her lab?
+What's his/her score?
+
+Current spreadsheet:
+
+ID        NAME        LAB     SCORE
+123        John        1       67
+132        Paul        1       75
+
+Do you want to add another student?  (Y/N)
+What's his/her ID?
+What's his/her name?
+What's his/her lab?
+What's his/her score?
+
+Current spreadsheet:
+
+ID        NAME        LAB     SCORE
+123        John        1       67
+132        Paul        1       75
+890        George      5       100
+
+Do you want to add another student?  (Y/N)
+What's his/her ID?
+What's his/her name?
+What's his/her lab?
+What's his/her score?
+
+Current spreadsheet:
+
+ID        NAME        LAB     SCORE
+123        John        1       67
+132        Paul        1       75
+890        George      5       100
+321        Ringo       2       98
+
+Do you want to add another student?  (Y/N)
+
+The average score on Lab 1 is 71.00
+The average score on Lab 2 is 98.00
+The average score on Lab 5 is 100.00
+The average score of the class is 85.00
+
+- We will not be testing invalid inputs.
+- IDs are always numbers between 3 and 10 digits long.
+- Labs are always numbers between 0 and 10, but there's no order or completeness guaranteed. There may be only students from lab 3 and 
+no students from other labs, for example.
+- Scores are in the range between 0 and 100.
+- The lab averages are printed in ascending lab order in the summary at the end (lab1, lab2, lab3, etc.).
+* Separate Columns BY Two Tabs! i.e. \t\t
+###
+from collections import namedtuple
+from collections import Counter
+import collections
+student_tuple = []
+# list for printing current spreadsheet
+studentSS = []
+# dict to store lab number and score
+studentlabdict = {}
+# list to store counts of labs
+studentlabs = []
+student = namedtuple('student', ['ID', 'name', 'lab', 'score'])
+inpAdd = input("Do you want to add another student?  (Y/N)\n")
+# variable to keep track of number of inputs
+countnum = 0
+# variable needed to find total score average later
+totalscore = 0
+# loop for each valid input
+while inpAdd != 'N':
+    # keeping tracking of number of inputs
+    countnum += 1
+    student_ID = int(input("What's his/her ID?\n"))
+    student_name = input("What's his/her name?\n")
+    student_lab = int(input("What's his/her lab?\n"))
+    student_score = int(input("What's his/her score?\n"))
+    studentName = student(student_ID, student_name, student_lab, student_score)
+    student_tuple.append(studentName)
+    # to find total score value for each lab key
+    if student_lab not in studentlabdict:
+        studentlabdict[student_lab] = student_score
+    else:
+        studentlabdict[student_lab] += student_score
+
+    # keeping track of total score
+    totalscore += student_score
+    # adding each lab (duplicates included)
+    studentlabs.append(student_lab)
+
+    # to print the incremented spreadsheet
+    studentList = (
+        '{ID}\t\t{name}\t\t{lab}\t\t{score}'.format(**studentName._asdict())
+        )
+    studentSS.append(studentList)
+    print("\nCurrent spreadsheet:\n")
+    print("\nID\t\tNAME\t\tLAB\t\tSCORE")
+    for i in range(countnum):
+        print(studentSS[i])
+
+    # prompt user for another input
+    inpAdd = input("\nDo you want to add another student?  (Y/N)\n")
+
+# finding counts of each key
+c = Counter(studentlabs)
+
+# to "sort" dict for the for loop to print avg's in order
+orderedlabdict = collections.OrderedDict(sorted(studentlabdict.items()))
+
+# for loop to print averages.
+for i in orderedlabdict:
+    print("The average score on Lab", i,
+          "is %.2f" % (studentlabdict[i] / c[i]))
+print("The average score of the class is", "%.2f" % (totalscore / countnum))
+
+
+
+5.15 LAB: Too Many Friends
+###
+After all your help Kenneth was able to organize all his friends' information in his phonebook. A part of the phonebook is shown below 
+as an example:
+
+Name	phone	biggest fear	major	hobby
+Maegan	1		neuroscience	
+Caio		grading	comp. sci.	fifa
+Bruce	3	bats		fighting crime
+Jared			cs	working :(
+Hans		lecturing		Mexican "drinks"
+Shengquan	3120			
+Vivian			data science	
+Barry			forensics	running
+
+However, he has too many friends and it takes some time to find the one he is trying to find.
+
+Your mission, should you choose to accept it, is to create a function to retrieve all the data for a single friend. To achieve this, 
+you shoud:
+
+1. create a function print_data that receives one phonebook as parameter;
+2. prompt the user for a name, using this message:
+
+Enter a name: 
+
+3. if the name is not in the phonebook, you should print the error message below and ask for a new name just like in step 2.
+
+ERROR: unknown name.
+
+4. print all the information for the given friend, following the format below:
+
+Data available for Barry:
+major -> forensics
+hobby -> running
+
+HINT: the provided phonebooks to your function are dictionaries of dictionaries, as previously used in zyLab 4.22 Structured Phonebook. 
+For instance, phonebook['Barry']['hobby'] == "running" for the given example.
+
+Example 1:
+If the dictionary you receive is the one that corresponds to the table above, and the input is:
+
+Jared
+
+Then the output should be:
+
+Enter a name:
+Data available for Jared:
+major -> cs
+hobby -> working :(
+Example 2:
+
+If the dictionary you receive is the one that corresponds to the table above, and the input is:
+
+Ciao
+Caio
+
+Then the output should be:
+
+Enter a name:
+ERROR: unknown name.
+Enter a name:
+Data available for Caio:
+biggest fear -> grading
+major -> comp. sci.
+hobby -> fifa
+###
+def print_data(phonebook):
+    while True:
+        inpName = input("Enter a name:\n")
+        if inpName in list(phonebook.keys()):
+            break
+        else:
+            print("ERROR: unknown name.")
+    print("Data available for", inpName + ":")
+    for i in list(phonebook[inpName].keys()):
+        print(i, "->", phonebook[inpName][i])
+
+# DON'T CHANGE THIS CODE!
+# IT IS USED FOR THE FIRST TWO TEST CASES
+if __name__ == "__main__":
+    example = {'Maegan': {'phone': '1', 'major': 'neuroscience'},
+               'Caio': {
+                   'biggest fear': 'grading',
+                   'major': 'comp. sci.',
+                   'hobby': 'fifa'
+                   },
+               'Bruce': {
+                   'phone': '3',
+                   'biggest fear': 'bats',
+                   'hobby': 'fighting crime'
+                   },
+               'Jared': {
+                   'major': 'cs',
+                   'hobby': 'working :('
+                   },
+               'Hans': {
+                   'biggest fear': 'lecturing',
+                   'hobby': 'Mexican "drinks"'
+                   },
+               'Shengquan': {'phone': '3120'},
+               'Vivian': {'major': 'data science'},
+               'Barry': {'major': 'forensics', 'hobby': 'running'}}
+
+    print_data(example)

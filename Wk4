@@ -1,0 +1,927 @@
+4.11 LAB: Max magnitude
+###
+Write a function MaxMagnitude with two integer input parameters that returns the largest magnitude value. Use the function in a program 
+that takes two integer inputs, and outputs the largest magnitude value.
+
+Ex: If the inputs are 5 7 the function returns 7.
+
+Ex: If the inputs are -8 -2 the function returns -8.
+
+Note: The function does not just return the largest value, which for -8 -2 would be -2. Though not necessary, you may use the built-in 
+absolute value function.
+
+Your program must define and call the following function:
+def MaxMagnitude(userVal1, userVal2)
+###
+import math
+
+
+def MaxMagnitude(userVal1, userVal2):
+    if abs(userVal1) > abs(userVal2):
+        return userVal1
+    if abs(userVal1) < abs(userVal2):
+        return userVal2
+    if abs(userVal1) == abs(userVal2):
+        return userVal1
+
+if __name__ == '__main__':
+    userVal1 = int(input())
+    userVal2 = int(input())
+    MaxMagnitude(userVal1, userVal2)
+    print(MaxMagnitude(userVal1, userVal2))
+
+
+
+4.12 LAB: Text message abbreviation decoder
+###
+(1) If a user's input string matches a known text message abbreviation, output the unabbreviated form, else output: Unknown. Support two abbreviations: LOL -- laughing out loud, and IDK -- I don't know. (4 pts) 
+
+Sample input/output:
+
+Input an abbreviation:
+LOL
+laughing out loud
+
+(2) Expand to also decode these abbreviations. (3 pts)
+
+BFF -- best friends forever
+IMHO -- in my humble opinion
+TMI -- too much information
+###
+abbreviation = input()
+print('Input an abbreviation:')
+if abbreviation == 'LOL':
+    print ('laughing out loud')
+elif abbreviation == 'IDK':
+    print ('I don\'t know')
+elif abbreviation == 'BFF':
+    print('best friends forever')
+elif abbreviation == 'IMHO':
+    print('in my humble opinion')
+elif abbreviation == 'TMI':
+    print('too much information')
+else:
+    print('Unknown')
+
+
+
+4.13 LAB: Remove gray from RGB
+###
+Summary: Given integer values for red, green, and blue, subtract the gray from each value.
+
+Computers represent color by combining the sub-colors red, green, and blue (rgb). Each sub-color's value can range from 0 to 255. 
+Thus (255, 0, 0) is bright red, (130, 0, 130) is a medium purple, (0, 0, 0) is black, (255, 255, 255) is white, and (40, 40, 40) is a 
+dark gray. (130, 50, 130) is a faded purple, due to the (50, 50, 50) gray part. (In other words, equal amounts of red, green, blue 
+yield gray).
+
+Given values for red, green, and blue, remove the gray part.
+
+Ex: If the input is:
+
+130
+50
+130
+
+Then the output is:
+
+80 0 80
+Find the smallest value, and then subtract it from all three values, thus removing the gray.
+
+Note: This page converts rgb values into colors.
+###
+red = int(input())
+green = int(input())
+blue = int(input())
+
+if red < green and red < blue:
+    gray = red
+elif green < red and green < blue:
+    gray = green
+elif blue < green and blue < red:
+    gray = blue
+elif red == blue == green:
+    gray = red
+
+red2 = red - gray
+green2 = green - gray
+blue2 = blue - gray
+print(red2, green2, blue2)
+
+
+
+4.14 LAB: Largest number
+###
+Write a program whose inputs are three integers, and whose output is the largest of the three values.
+
+Ex: If the input is:
+
+7
+15
+3
+
+Then the output is:
+
+15
+###
+num1 = int(input())
+num2 = int(input())
+num3 = int(input())
+
+if (num1 > num2):
+    if num1 > num3:
+        print(num1)
+if (num2 > num1):
+    if num2 > num3:
+        print(num2)
+if (num3 > num1):
+    if num3 > num2:
+        print(num3)
+if num1 == num2:
+    if num1 == num3:
+        print(num1)
+
+
+
+4.15 LAB: Interstate highway numbers
+###
+Primary U.S. interstate highways are numbered 1-99. Odd numbers (like the 5 or 95) go north/south, and evens (like the 10 or 90) go 
+east/west. Auxiliary highways are numbered 100-999, and service the primary highway indicated by the rightmost two digits. Thus, the 
+405 services the 5, and the 290 services the 90.
+
+Given a highway number, indicate whether it is a primary or auxiliary highway. If auxiliary, indicate what primary highway it serves. 
+Also indicate if the (primary) highway runs north/south or east/west.
+
+Ex: If the input is 90, the output is:
+
+The 90 is primary, going east/west.
+
+Ex: If the input is 290, the output is:
+
+The 290 is auxiliary, serving the 90, going east/west.
+
+Ex: If the input is not 1-999, such as 0, the output is:
+
+0 is not a valid interstate highway number. 
+
+See Wikipedia for more info on highway numbering.
+###
+highwayNumber = int(input())
+
+if 0 < highwayNumber < 100:
+    print('The', highwayNumber, 'is primary', end=', ')
+    if highwayNumber % 2 == 0:
+        print('going east/west.')
+    else:
+        print('going north/south.')
+
+
+if 99 < highwayNumber < 1000:
+    print('The', highwayNumber, 'is auxiliary', end=', ')
+    highwayNumber = abs(highwayNumber) % 100
+    print('serving the', '%d,' % highwayNumber, end=' ')
+    if highwayNumber % 2 == 0:
+        print('going east/west.')
+    else:
+        print('going north/south.')
+
+if (highwayNumber < 1) or (highwayNumber > 999):
+    print(highwayNumber, 'is not a valid interstate highway number.')
+
+
+
+4.16 LAB: Exact change
+###
+Write a program with total change amount as an integer input, and output the change using the fewest coins, one coin type per line. 
+The coin types are dollars, quarters, dimes, nickels, and pennies. Use singular and plural coin names as appropriate, like 1 penny 
+vs. 2 pennies.
+
+Ex: If the input is 0 or less, output:
+
+no change 
+
+Ex: If the input is 45, the output is:
+
+1 quarter
+2 dimes 
+###
+change = int(input())
+if change <= 0:
+    print('no change')
+if change >= 100:
+    if change//100 > 1:
+        print(change//100, 'dollars')
+        change = change % 100
+    else:
+        print(change//100, 'dollar')
+        change = change % 100
+if change >= 25:
+    if change//25 > 1:
+        print(change//25, 'quarters')
+        change = change % 25
+    else:
+        print(change//25, 'quarter')
+        change = change % 25
+if change >= 10:
+    if change//10 > 1:
+        print(change//10, 'dimes')
+        change = change % 10
+    else:
+        print(change//10, 'dime')
+        change = change % 10
+if change >= 5:
+    if change//5 > 1:
+        print(change//5, 'nickels')
+        change = change % 5
+    else:
+        print(change//5, 'nickel')
+        change = change % 5
+if change >= 1:
+    if change//1 > 1:
+        print(change//1, 'pennies')
+    else:
+        print(change//1, 'penny')
+
+
+
+4.17 LAB: In-N-Out Ordering
+###
+Design a program to manage the basic In-N-Out ordering of shakes and french-fries.
+
+A few menus and prompts are pasted below. Since this program is heavy on input/output interactions, please study the output for each of 
+the test cases given.
+
+NOTE: We suggest you program incrementally. When writing input statements, end each input string with "\n"
+
+~~~Welcome to In-N-Out~~~
+We'd like to take your order
+~~ Shake Menu ~~~
+     V : Vanilla    ($3)
+     C : Chocolate  ($3)
+     S : Strawberry ($3)
+     N : Neapolitan ($5)
+Please make a selection from the above:
+~~ Fries Menu ~~~
+     A : Animal Fries ($4)
+     C : Cheese Fries ($3)
+     F : French Fries ($2)
+Please make a selection from the above:
+###
+print('~~~Welcome to In-N-Out~~~')
+print("We'd like to take your order")
+print('')
+
+shake_yn = input()
+print('Would you like a shake? Y/N')
+if (shake_yn == 'Y') or (shake_yn == 'y'):
+    print('~~ Shake Menu ~~~')
+    print('     V : Vanilla    ($3)')
+    print('     C : Chocolate  ($3)')
+    print('     S : Strawberry ($3)')
+    print('     N : Neapolitan ($5)')
+    shakes = ['V', 'C', 'S', 'N']
+    print('Please make a selection from the above:')
+    shakeorder = input()
+    if shakeorder not in shakes:
+        print(shakeorder + ':', 'Invalid selection')
+    if shakeorder == 'V':
+        shakeorder = 'Vanilla Shake'
+        shakeprice = 3
+    if shakeorder == 'C':
+        shakeorder = 'Chocolate Shake'
+        shakeprice = 3
+    if shakeorder == 'S':
+        shakeorder = 'Strawberry Shake'
+        shakeprice = 3
+    if shakeorder == 'N':
+        shakeorder = 'Neapolitan Shake'
+        shakeprice = 5
+
+fries_yn = input()
+print('Would you like fries? Y/N')
+if (fries_yn == 'Y') or (fries_yn == 'y'):
+    print('~~ Fries Menu ~~~')
+    print('     A : Animal Fries ($4)')
+    print('     C : Cheese Fries ($3)')
+    print('     F : French Fries ($2)')
+    print('Please make a selection from the above:')
+    fries = ['A', 'C', 'F']
+    friesorder = input()
+    if friesorder not in fries:
+        print(friesorder + ':', 'Invalid selection')
+    if friesorder == 'A':
+        friesorder = 'Animal Fries'
+        friesprice = 4
+    if friesorder == 'C':
+        friesorder = 'Cheese Fries'
+        friesprice = 3
+    if friesorder == 'F':
+        friesorder = 'French Fries'
+        friesprice = 2
+
+print('')
+print('~~~Order Summary~~~')
+
+shakesfl = (['Vanilla Shake', 'Chocolate Shake', 'Strawberry Shake',
+             'Neapolitan Shake'])
+friesfl = ['Animal Fries', 'Cheese Fries', 'French Fries']
+
+if ((shake_yn == 'Y' or shake_yn == 'y') and
+        (fries_yn == 'Y' or fries_yn == 'y')):
+            if (shakeorder in shakesfl) and (friesorder in friesfl):
+                print(shakeorder + ',', 'and', friesorder)
+                print('Your total is:', '$%d' % (shakeprice + friesprice))
+            if (shakeorder not in shakesfl) and (friesorder in friesfl):
+                print(friesorder)
+                print('Your total is:', '$%d' % friesprice)
+            if (shakeorder in shakesfl) and (friesorder not in friesfl):
+                print(shakeorder)
+                print('Your total is:', '$%d' % shakeprice)
+            if (shakeorder not in shakesfl) and (friesorder not in friesfl):
+                print("Not Hungry? That's OK... Have a nice day!")
+elif shake_yn == 'Y' or shake_yn == 'y':
+    if shakeorder in shakesfl:
+        print(shakeorder)
+        print('Your total is:', '$%d' % shakeprice)
+    else:
+        print("Not Hungry? That's OK... Have a nice day!")
+elif fries_yn == 'Y' or fries_yn == 'y':
+    if friesorder in friesfl:
+        print(friesorder)
+        print('Your total is:', '$%d' % friesprice)
+    else:
+        print("Not Hungry? That's OK... Have a nice day!")
+else:
+    print("Not Hungry? That's OK... Have a nice day!")
+
+
+
+4.18 LAB: Seasons
+###
+Write a program that takes a date as input and outputs the date's season. The input is a string to represent the month and an int to 
+represent the day.
+
+Ex: If the input is:
+
+April
+11
+
+Then the output is:
+
+spring
+
+In addition, check if the string and int are valid (an actual month and day).
+
+Ex: If the input is invalid, the output is:
+
+invalid 
+
+The dates for each season are:
+spring: March 20 - June 20
+summer: June 21 - September 21
+autumn: September 22 - December 20
+winter: December 21 - March 19
+###
+month = input()
+day = int(input())
+
+if month in ('January', 'February', 'March'):
+    season = 'winter'
+elif month in ('April', 'May', 'June'):
+    season = 'spring'
+elif month in ('July', 'August', 'September'):
+    season = 'summer'
+else:
+    season = 'autumn'
+
+if (month == 'March') and (day > 19):
+    season = 'spring'
+elif (month == 'June') and (day > 20):
+    season = 'summer'
+elif (month == 'September') and (day > 21):
+    season = 'autumn'
+elif (month == 'December') and (day > 20):
+    season = 'winter'
+
+months = ['January', 'February', 'March', 'April', 'May', 'June',
+          'July', 'August', 'September', 'November', 'December']
+
+months31 = ['January', 'March', 'May', 'July', 'August', 'October',
+            'December']
+
+months30 = ['April', 'June', 'September', 'November']
+
+if (month in months):
+    if month == 'February':
+        if day > 29:
+            print('invalid')
+        elif day < 1:
+            print('invalid')
+        elif day < 30:
+            print(season)
+    elif month in months31:
+        if day > 31:
+            print('invalid')
+        elif day < 1:
+            print('invalid')
+        elif day < 32:
+            print(season)
+    elif month in months30:
+        if day > 30:
+            print('invalid')
+        elif day < 1:
+            print('invalid')
+        elif day < 30:
+            print(season)
+
+elif month not in months:
+    print('invalid')
+
+elif (day < 0) or (day > 31):
+    print('invalid')
+
+
+
+4.19 LAB: Output with groupings: Vending machine
+###
+A vending machine serves chips, fruit, nuts, juice, water, and coffee. The machine owner wants a daily report indicating what items 
+sold that day. Given boolean values (1 or 0) indicating whether or not at least one of each item was sold (in the order chips, fruit, 
+nuts, juice, water, and coffee), output a list for the owner. If all three snacks were sold, output "All-snacks" instead of individual 
+snacks. Likewise, output "All-drinks" if appropriate. For coding simplicity, output a space after every item, including the last item.
+
+Ex: If the input is:
+
+0
+0
+1
+1
+1
+0
+
+Then the output is:
+
+Nuts Juice Water
+
+Ex: If the input is:
+
+1
+1
+1
+0
+0
+1
+Then the output is:
+
+All-snacks Coffee
+
+Ex: If the input is:
+
+1
+1
+1
+1
+1
+1
+
+Then the output is:
+
+All-snacks All-drinks
+Ex: If the input is
+
+0
+0
+0
+0
+0
+0
+
+The the output is:
+
+No items
+###
+chipsSold = int(input())
+fruitSold = int(input())
+nutsSold = int(input())
+juiceSold = int(input())
+waterSold = int(input())
+coffeeSold = int(input())
+
+if ((chipsSold == 0) and (fruitSold == 0) and (nutsSold == 0) and
+   (juiceSold == 0) and (waterSold == 0) and (coffeeSold == 0)):
+        print('No items')
+if (chipsSold == 1) and (fruitSold == 1) and (nutsSold == 1):
+    print('All-snacks', end=' ')
+else:
+    if chipsSold == 1:
+        print('Chips', end=' ')
+    if fruitSold == 1:
+        print('Fruit', end=' ')
+    if nutsSold == 1:
+        print('Nuts', end=' ')
+if (juiceSold == 1) and (waterSold == 1) and (coffeeSold == 1):
+    print('All-drinks', end=' ')
+else:
+    if juiceSold == 1:
+        print('Juice', end=' ')
+    if waterSold == 1:
+        print('Water', end=' ')
+    if coffeeSold == 1:
+        print('Coffee', end=' ')
+
+
+
+4.20 LAB: Leap Year
+###
+A year in the modern Gregorian Calendar consists of 365 days. In reality, the earth takes longer to rotate around the sun. To account 
+for the difference in time, every 4 years, a leap year takes place. A leap year is when a year has 366 days: An extra day, 
+February 29th. The requirements for a given year to be a leap year are:
+
+1) The year must be divisible by 4
+
+2) If the year is a century year (1700, 1800, etc.), the year must be evenly divisible by 400
+
+Some example leap years are 1600, 1712, and 2016.
+
+Write a program that takes in a year and determines whether that year is a leap year.
+
+Ex: If the input is 1712, the output is:
+
+1712 is a leap year. 
+
+Ex: If the input is 1913, the output is:
+
+1913 is not a leap year.
+###
+isLeapYear = False
+
+year = int(input())
+
+if (year % 4) == 0:
+    if (year % 100) == 0:
+        if (year % 400) == 0:
+            print(year, 'is a leap year.')
+        else:
+            print(year, 'is not a leap year.')
+    else:
+        print(year, 'is a leap year.')
+else:
+    print(year, 'is not a leap year.')
+
+
+
+4.21 LAB: Detective Work
+###
+Using a list help Dr. Pepper investigate a crime. He usually asks 5 questions to each person he interviews:
+
+"Did you call the victim?"
+"Were you in the crime scene?"
+"Do you live close to the victim?"
+"Did you owe money to the victim?"
+"Have you ever worked with the victim?"
+
+The answers are always either "Yes" or "No".
+
+Print the list after you record all the answers.
+
+Your program must give a final verdict about the participation of that person in the crime. If there are 2 positive answers this person 
+must be classified as "Suspect". For 3 or 4 positive answers the classification is "Accomplice", and for 5 positive answers the 
+classification is "Killer". Otherwise, this person should be classified as "Innocent".
+
+For example, if the input is:
+
+No
+Yes
+Yes
+Yes
+No
+
+The expected output is:
+
+The recorded answers were ['No', 'Yes', 'Yes', 'Yes', 'No']
+
+The verdict is: Accomplice.
+###
+print('The recorded answers were', answerList, end='.')
+print('')
+
+verdict = 0
+
+if answer1 == 'Yes':
+    verdict += 1
+
+if answer2 == 'Yes':
+    verdict += 1
+
+if answer3 == 'Yes':
+    verdict += 1
+
+if answer4 == 'Yes':
+    verdict += 1
+
+if answer5 == 'Yes':
+    verdict += 1
+
+if verdict < 2:
+    print('\nThe verdict is: Innocent.')
+
+if verdict == 2:
+    print('\nThe verdict is: Suspect.')
+
+if (verdict == 3 or verdict == 4):
+    print('\nThe verdict is: Accomplice.')
+
+if verdict == 5:
+    print('\nThe verdict is: Killer.')
+
+
+
+4.22 LAB: Structured Phonebook
+###
+While playing around with his new phone, Kenneth found out that it can store more information about his friends than only their phone 
+numbers. After adding some more information to it, he ended up with the following phonebook:
+
+Name	phone	biggest fear	major
+Maegan	1		  Neuroscience
+Caio		  grading	Comp. Sci.
+Bruce	3	bats	
+
+However, after he was done he couldn't remember how to retrieve this information and needs your help!
+
+To achieve this, you need to:
+
+- create a dictionary with all the information above;
+
+- prompt the user for the name of a friend;
+
+- If the name is not one of Kenneth's friends, print an error out. For instance, if name==Clark, you should print:
+
+No friend named Clark.
+
+- Next, take as input the piece of information the user wants, only if the name is of one of his friends;
+
+- If the required information exists for the given friend, print it out. For instance, if name==Maegan and information==phone, you 
+should print:
+
+Maegan's phone is 1.
+
+- Else, if the information does not exist, print an error out. For instance, if name==Bruce and information==major, you should print:
+
+No major for Bruce.
+
+HINT: use a dictionary of dictionaries -> data['Maegan']['major'] == 'Neuroscience'.
+
+HINT: to print out a single quote you can do either print(" ' ") or print(' \' ').
+
+EXAMPLE 1 (friend is listed and information exists):
+If the input is:
+
+Caio
+biggest fear
+
+The output should be:
+
+Caio's biggest fear is grading.
+
+EXAMPLE 2 (friend is listed but information doesn't exist):
+If the input is:
+
+Bruce
+nickname
+
+The output should be:
+
+No nickname for Bruce.
+
+EXAMPLE 3 (friend isn't listed):
+If the input is:
+
+Clark Kent
+
+The output should be:
+
+No friend named Clark Kent.
+
+IMPORTANT: notice that we do not have a second input if the friend isn't known!
+###
+name = ['Maegan', 'Caio', 'Bruce']
+phone = [1, '', 3]
+fear = ['', 'grading', 'bats']
+major = ['Neuroscience', 'Comp. Sci.', '']
+
+dict_phone = {name: phone for name, phone in zip(name, phone)}
+dict_fear = {name: fear for name, fear in zip(name, fear)}
+dict_major = {name: major for name, major in zip(name, major)}
+
+inpName = input()
+if inpName not in name:
+    print('No friend named', inpName, end='.')
+if inpName in name:
+    info = input()
+    if info == 'phone':
+        if dict_phone[inpName] == '':
+            print('No phone for', inpName, end='.')
+        else:
+            print(inpName + "'s", 'phone is', dict_phone[inpName], end='.')
+    if info == 'biggest fear':
+        if dict_fear[inpName] == '':
+            print('No biggest fear for', inpName, end='.')
+        else:
+            print(inpName + "'s", 'biggest fear is',
+                  dict_fear[inpName], end='.')
+    if info == 'major':
+        if dict_major[inpName] == '':
+            print('No major for', inpName, end='.')
+        else:
+            print(inpName + "'s", 'major is', dict_major[inpName], end='.')
+
+
+
+4.23 LAB: Find Max Number in Set
+###
+Write a function that finds the maximum value in a set.
+
+1. Turn the initial list of numbers into a set
+2. Finish the function maxset() so that it is able to return the maximum value in the set.
+3. input  numbers range from 0 to 1000
+
+Sample Input / Output
+
+When the input is
+
+6 # the first input indicates how many elements are there in the initial list
+1
+2
+77
+4
+45
+2
+
+The output is expected to be
+
+77
+
+Hint: maxset will need to call itself to find the maximum number in the set. Hint: Use the set.pop() function to help you go through the set
+###
+def maxset(list_nums):
+    for i in list_nums:
+        max = 0
+        for i in list_nums:
+            if i > max:
+                max = i
+    return max
+
+if __name__ == "__main__":
+    list_nums = []
+
+    inp_len = int(input())
+
+    for i in range(inp_len):
+        inp_num = int(input())
+        list_nums.append(inp_num)
+
+print(maxset(list_nums))
+
+
+
+4.24 Lab: Assert Tutorial
+###
+Assert statements are a tool programmers employ to help them debug their code more efficiently.
+
+Assert statements help with debugging by evaluating if a given statement is true or false, but unlike an if-statement an assert statement will raise an error when it returns False, indicating their is a bug in the code that needs fixing.
+
+Furthermore, to help fix the bug a programmer can write a helpful error message their assert statement produces upon returning false making debugging even easier.
+
+In this interactive tutorial you will learn to write assert statements to test a simple function.
+
+The syntax for assert is −
+
+assert Expression[, Arguments]
+
+Where Expression and Arguments are defined as follows:
+
+Expression: The statement you want to assert must be True
+Arguments: The helpful error message the assert produces when returning False
+
+Here is an example of what this looks like in Python.
+
+def KelvinToFahrenheit(Temperature):
+   assert (Temperature >= 0),"Colder than absolute zero!"
+   return ((Temperature-273)*1.8)+32
+
+print KelvinToFahrenheit(273)
+print int(KelvinToFahrenheit(505.78))
+print KelvinToFahrenheit(-5)
+
+When the above code is executed, it produces the following result:
+
+32.0
+451
+Traceback (most recent call last):
+   File "test.py", line 9, in <module>
+      print KelvinToFahrenheit(-5)
+   File "test.py", line 4, in KelvinToFahrenheit
+      assert (Temperature >= 0),"Colder than absolute zero!"
+AssertionError: Colder than absolute zero!
+
+The AssertionError let's the programmer know that the function KelvinToFahrenheit should not have negative input, like -5, as an input given to the function.
+
+Now for the interactive part. In this lab you will extend the KelvinToFahrenheit function by writing an assert statement to make sure someone does not try to input a string, such as "5", for the Temperature.
+
+To check if something is of a certain type you can use isinstance(arg, type)
+
+For example if you want to check if something is a string you can do:
+
+isinstance(Temperature, str)
+
+Now you just have to write assert(s) that make sure the Temperature is not a string.
+
+Once done, write a print statement in __main__ to make sure you wrote the assert statement correctly. You will want to call KelvinToFahrenheit with a string!
+
+Another use for assert statements is to test the return values of functions to make sure they are valid.
+
+The syntax for doing this is as follows:
+
+assert KelvinToFahrenheit(273) == 0
+
+Write an Assert Statement just like the one above, except make one that will give an error.
+
+Note you were supposed to know this for the midterm, but if you didn't then you know it now.
+
+While doing the above statement is nice because you will get an error if your function gives a return value you.
+
+Hints:
+1. Use the __main__ statement whenever appropriate. Read section 2.5 - "Importing modules and executing scripts" if you are not familiar with this. Read chapters which discuss scope of variables too.
+2. I hope this tutorial was helpful in learning about testing your code using assert statements
+3. Please refer back to this lab whenever you like after you are done.
+4. From now on you will be expected to use what you learned in this tutorial in labs and on the Final!
+5. Read lecture slides for details on assert statements
+6. Read the StackOverflow post for discussions on assertion statement
+###
+4.24 Lab: Assert Tutorial
+Assert statements are a tool programmers employ to help them debug their code more efficiently.
+
+Assert statements help with debugging by evaluating if a given statement is true or false, but unlike an if-statement an assert statement will raise an error when it returns False, indicating their is a bug in the code that needs fixing.
+
+Furthermore, to help fix the bug a programmer can write a helpful error message their assert statement produces upon returning false making debugging even easier.
+
+In this interactive tutorial you will learn to write assert statements to test a simple function.
+
+The syntax for assert is −
+
+assert Expression[, Arguments]
+Where Expression and Arguments are defined as follows:
+
+Expression: The statement you want to assert must be True
+Arguments: The helpful error message the assert produces when returning False
+Here is an example of what this looks like in Python.
+
+def KelvinToFahrenheit(Temperature):
+   assert (Temperature >= 0),"Colder than absolute zero!"
+   return ((Temperature-273)*1.8)+32
+
+print KelvinToFahrenheit(273)
+print int(KelvinToFahrenheit(505.78))
+print KelvinToFahrenheit(-5)
+When the above code is executed, it produces the following result:
+
+32.0
+451
+Traceback (most recent call last):
+   File "test.py", line 9, in <module>
+      print KelvinToFahrenheit(-5)
+   File "test.py", line 4, in KelvinToFahrenheit
+      assert (Temperature >= 0),"Colder than absolute zero!"
+AssertionError: Colder than absolute zero!
+The AssertionError let's the programmer know that the function KelvinToFahrenheit should not have negative input, like -5, as an input given to the function.
+
+Now for the interactive part. In this lab you will extend the KelvinToFahrenheit function by writing an assert statement to make sure someone does not try to input a string, such as "5", for the Temperature.
+
+To check if something is of a certain type you can use isinstance(arg, type)
+
+For example if you want to check if something is a string you can do:
+
+isinstance(Temperature, str)
+Now you just have to write assert(s) that make sure the Temperature is not a string.
+
+Once done, write a print statement in __main__ to make sure you wrote the assert statement correctly. You will want to call KelvinToFahrenheit with a string!
+
+Another use for assert statements is to test the return values of functions to make sure they are valid.
+
+The syntax for doing this is as follows:
+
+assert KelvinToFahrenheit(273) == 0
+Write an Assert Statement just like the one above, except make one that will give an error.
+
+Note you were supposed to know this for the midterm, but if you didn't then you know it now.
+
+While doing the above statement is nice because you will get an error if your function gives a return value you.
+
+Hints:
+Use the __main__ statement whenever appropriate. Read section 2.5 - "Importing modules and executing scripts" if you are not familiar with this. Read chapters which discuss scope of variables too.
+I hope this tutorial was helpful in learning about testing your code using assert statements
+Please refer back to this lab whenever you like after you are done.
+From now on you will be expected to use what you learned in this tutorial in labs and on the Final!
+Read lecture slides for details on assert statements
+Read the StackOverflow post for discussions on assertion statement
+
+
+

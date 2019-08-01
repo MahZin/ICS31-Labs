@@ -1,0 +1,470 @@
+8.8 LAB: Checker for integer string
+###
+Forms often allow a user to enter an integer. Write a program that takes in a string representing an integer as input, and outputs yes if 
+every character is a digit 0-9.
+
+Ex: If the input is 1995, the output is:
+
+yes
+
+Ex: If the input is 42,000 or 1995!, the output is:
+
+no
+
+Hints
+1. Use the __main__ statement whenever appropriate. Read section 2.5 - "Importing modules and executing scripts" if you are not familiar 
+with this.
+###
+num = input()
+if num.isdigit() == True:
+    print('yes')
+else:
+    print('no')
+
+
+
+8.9 LAB: Name format
+###
+Many documents use a specific format for a person's name. Write a program whose input is: firstName middleName lastName, and whose 
+output is: lastName, firstName middleInitial.
+
+Ex: If the input is Pat Silly Doe, the output is:
+
+Doe, Pat S.
+
+If the input has the form firstName lastName, the output is lastName, firstName.
+
+Ex: If the input is: Julia Clark, the output is:
+
+Clark, Julia
+
+Your program is expected to handle one single line of input from console.
+###
+name = input()
+names = name.split()
+
+if(len(names) == 3):
+    middle = names[1]
+    mid = middle[0].upper() + "."
+    last = names[2] + ","
+    first = names[0]
+    print(last, first, mid)
+
+elif(len(names) == 2):
+    last = names[1] + ","
+    first = names[0]
+    print(last, first)
+
+
+
+8.10 LAB: Count characters
+###
+Write a program whose input is a string which contains a character and a phrase, and whose output indicates the number of times the 
+character appears in the phrase.
+
+Ex: If the input is: n Monday, the output is:
+
+1
+
+Ex: If the input is: z Today is Monday, the output is:
+
+0
+
+Ex: If the input is: n It's a sunny day, the output is:
+
+2
+
+Case matters.
+
+Ex: If the input is: n Nobody, the output is:
+
+0
+
+n is different than N.
+###
+def count(s, c):
+    res = 0
+    for i in range(len(s)):
+        if (s[i] == c):
+            res = res + 1
+    return res - 1
+
+
+str = input()
+c = str[0]
+print(count(str, c))
+
+
+
+8.11 LAB: Varied amount of input data
+###
+Statistics are often calculated with varying amounts of input data. Write a program that takes any number of integers as input, and outputs the average and max.
+
+Ex: When the input is 15 20 0 5, the output is:
+
+10 20
+###
+num = input()
+newlist = num.split()
+newlist = [int(i) for i in newlist]
+avg = int(sum(newlist) / len(newlist))
+maxnum = max(newlist)
+print(avg, maxnum)
+
+
+
+8.12 LAB: Filter and sort a list
+###
+Write a program that gets a list of integers from input, and outputs non-negative integers in ascending order (lowest to highest).
+
+Ex: When the input is 10 -7 4 39 -6 12 2, the output is:
+
+2 4 10 12 39
+
+For coding simplicity, follow every output value by a space. Do not end with newline.
+
+Hints
+1. Use the __main__ statement whenever appropriate. Read section 2.5 - "Importing modules and executing scripts" if you are not familiar 
+with this.
+###
+num = input()
+newlist = num.split()
+list2 = []
+newlist = [int(i) for i in newlist]
+for num in newlist:
+    if num >= 0:
+        list2.append(num)
+list2.sort()
+list2 = [str(i) for i in list2]
+result = ' '.join(list2)
+if __name__ == '__main__':
+    print(result, end  = ' ')
+
+
+
+8.13 LAB: Mad Lib - loops
+###
+Mad Libs are activities that have a person provide various words, which are then used to complete a short story in unexpected 
+(and hopefully funny) ways.
+
+Write a program that takes a string and integer as input, and outputs a sentence using those items as below. The program repeats until 
+the input string is quit.
+
+Ex: If the input is:
+
+apples 5
+shoes 2
+quit 0
+
+Then the output is:
+
+Eating 5 apples a day keeps the doctor away.
+Eating 2 shoes a day keeps the doctor away.
+
+Note: This is a lab from a previous chapter that now requires the use of a loop.
+###
+user_input = input()
+while True:
+    item = user_input.split()[0]
+    item_count = int(user_input.split()[1])
+    if item.lower() == "quit":
+        break
+    print(
+        "Eating " + str(item_count) + " " +
+        item + " a day keeps the doctor away."
+    )
+    user_input = input()
+
+
+
+8.14 LAB: Palindrome
+###
+A palindrome is a word or a phrase that is the same when read both forward and backward. Examples are: "bob," "sees," or "never odd or even" (ignoring spaces). Write a program whose input is a word or phrase, and that outputs whether the input is a palindrome.
+
+Ex: If the input is bob, the output is:
+
+bob is a palindrome
+
+Ex: If the input is bobby, the output is:
+
+bobby is not a palindrome
+
+Hint: Start by removing spaces. Then check if a string is equivalent to it's reverse.
+###
+def isPalindrome(str):
+    str = ''.join(str.split())
+    for i in range(len(str) // 2):
+        if str[i] != str[len(str) - i - 1]:
+            return False
+    return True
+
+
+if __name__ == "__main__":
+    text = input()
+    if isPalindrome(text):
+        print(text + ' is a palindrome')
+    else:
+        print(text + ' is not a palindrome')
+
+
+
+8.15 LAB: Acronyms
+###
+An acronym is a word formed from the initial letters of words in a set phrase. Write a program whose input is a phrase and whose 
+output is an acronym of the input. If a word begins with a lower case letter, don't include that letter in the acronym. Assume there 
+will be at least one upper case letter in the input.
+
+Ex: If the input is Institute of Electrical and Electronics Engineers, the output should be:
+
+IEEE
+###
+def user_input():
+    return input()
+
+
+def acronym(words):
+    return "".join(word[0] for word in words if word[0].isupper())
+
+
+def main():
+    print(acronym(user_input().split()))
+
+
+if __name__ == '__main__':
+    main()
+
+
+
+8.16 LAB: Contains the character
+###
+Write a program that reads a character, then reads in a list of words. The output of the program is every word in the list that 
+contains the character at least once. Assume at least one word in the list will contain the given character.
+
+Ex: If the input is:
+
+z
+hello zoo sleep drizzle
+
+then the output is:
+
+zoo
+drizzle
+
+Keep in mind that the character 'a' is not equal to the character 'A'.
+###
+inpchar = input()
+if(len(inpchar) != 1):
+    print()
+else:
+    inpstr = input()
+    words = inpstr.split()
+    for word in words:
+        if inpchar in word:
+            print(word)
+
+
+
+8.17 ICS Tunes
+###
+You will write an application to manage music collections -- a music collection is a list of albums.
+
+The named tuples used for Albums and Songs are defined below, and an example of a music collection is given. (DO NOT HARDCODE THE VALUES
+FOR MUSIC!)
+
+Album = namedtuple('Album', 'id artist title year songs')  
+Song = namedtuple('Song', 'track title length play_count')  
+
+MUSIC = [  
+    Album("1", "Peter Gabriel", "Up", 2002,  
+        [Song(1, "Darkness", 411, 5),  
+         Song(2, "Growing Up", 453, 5)]),  
+    Album("2", "Simple Minds", "Once Upon a Time", 1985,  
+        [Song(1, "Once Upon a Time", 345, 9),  
+         Song(2, "All the Things She Said", 256, 10)]),  
+    Album("TRS", "The Rolling Stones", "Let It Bleed", 1969,  
+        [Song(1, "Gimme Shelter", 272, 3),  
+         Song(2, "Love In Vain", 259, 2),  
+         Song(3, "You Can't Always Get What You Want", 448, 10)]) ]
+To achieve this, you need to:
+
+Write a function called get_song_input that has no parameters. This function should prompt the user for the required information to 
+create a new song, create the song and return it. You should require the information as follows:
+Enter the song's track:
+Enter the song's title:
+Enter the song's length:
+Enter the song's play_count:
+Write a function called get_album_input that has no parameters. This function should prompt the user for the required information to 
+create a new album, create the album and return it. You should require the information as follows:
+Enter the album's id:
+Enter the album's artist:
+Enter the album's title:
+Enter the album's year:
+Enter the number of songs in this album:
+Enter the song's track:
+Enter the song's title:
+Enter the song's length:
+Enter the song's play_count:
+Note that the last four lines should be repeated once for each song in the album.
+
+Write a function called add_album that takes a music collection (a list of albums) as a parameter. The function should create a new 
+album, add it to the end of the list, and then return the updated collection.
+
+Write a function called remove_album that takes a music collection (a list of albums) and an ID as parameters. The function should 
+remove the album that has a matching ID from the list, and then return the updated collection. If there is no album with a matching ID, 
+simply print 'Album not found.' and return the collection.
+
+Write a function called favorite_song that takes a music collection and an album ID as parameters. The function returns the song that 
+is the "favorite" from the album that matched the ID. We'll define the favorite song as the one that has the highest playing time. 
+(The playing time of a song is computed as the product of its play_count and length.) If there is no album with a matching ID, return 
+'Album not found.'.
+
+Write a function called unplayed_songs that takes a music collection and an album ID as parameters. It should return a list of the 
+songs that have not been played from the album that matched the ID. If there is no album with a matching ID, simply print and return 
+'Album not found.'.
+
+Write a function called favorite_album that takes a music collection and returns the album that is the "favorite." We'll define the 
+favorite album as the one that has the highest playing time. (An album's playing time is the sum of all its songs' playing time.)
+
+Write a function called unplayed_albums that takes a music collection and returns a list of the albums that have not been played.
+
+Write a function called print_menu that has no parameters. This function should display the menu (as shown below), and prompt the user 
+for a choice. It should repeat the message 'Choose an option' while the user does not input a valid choice. The function should return 
+the valid choice the user entered. Note that you only print the entire menu once per valid choice. That is, if the user enters an 
+invalid choice, you should not repeat the entire menu, only the 'Choose an option' message.
+
+MUSIC COLLECTION MANAGER
+
+add - Add a new album
+del - Remove an album
+fav_a - Print favorite album
+fav_s - Print favorite song
+not_a - Print not played albums
+not_s - Print not played songs
+exit - Exit the application
+
+Choose an option:
+Finally, inside the main block of your code (if __name__ == '__main__'), print the menu and perform the action the user requested until 
+they request to exit the application.
+HINT: you can call get_song_input the desired amount of times to help create the list of songs for an album.
+
+HINT: you can create extra functions to help you. For instance, a function that takes a song as a parameter and calculates its playing 
+time could be helpful.
+###
+from collections import namedtuple
+Album = namedtuple('Album', 'id artist title year songs')
+Song = namedtuple('Song', 'track title length play_count')
+MUSIC = []
+
+
+def get_song_input():
+    track = int(input("Enter the song's track:"))
+    title = input("Enter the song's title:")
+    length = int(input("Enter the song's length:"))
+    play_count = int(input("Enter the song's play_count:"))
+    song_tuple = Song(
+        track,
+        title,
+        length,
+        play_count
+    )
+    return song_tuple
+
+def get_album_input():
+    Songs = []
+    album_id = input("Enter the album's id:")
+    artist = input("Enter the album's artist:")
+    title = input("Enter the album's title:")
+    year = int(input("Enter the album's year:"))
+    songs = int(input("Enter the number of songs in this album:"))
+    for i in range(int(songs)):
+        Songs.append(get_song_input())
+    album_tuple = Album(
+        album_id,
+        artist,
+        title,
+        year,
+        Songs
+    )
+    return album_tuple
+
+def add_album(MUSIC):
+    MUSIC.append(get_album_input())
+    return MUSIC
+
+
+def remove_album(MUSIC, ID):
+    len1 = len(MUSIC)
+    MUSIC = [Album for Album in MUSIC if Album.id != ID]
+    len2 = len(MUSIC)
+    if len1 == len2:
+        print("Album not found.")
+
+    return MUSIC
+
+
+def song_play_time(song_tuple):
+    play_time = song_tuple.length * song_tuple.play_count
+    return play_time
+
+
+
+
+def favorite_song(MUSIC, ID):
+    one_album = [Album for Album in MUSIC if Album.id == ID]
+    song_play_time()
+    one_album.sort(key = play_time, reverse = True)
+    return one_album[0]
+        
+
+
+def unplayed_songs(MUSIC, ID):
+    pass
+
+
+def favorite_album(MUSIC):
+    pass
+
+def unplayed_albums(MUSIC):
+    pass
+
+
+def print_menu():
+    user_inp = ''
+    while user_inp != 'exit':
+        print(
+            """MUSIC COLLECTION MANAGER
+
+add - Add a new album
+del - Remove an album
+fav_a - Print favorite album
+fav_s - Print favorite song
+not_a - Print not played albums
+not_s - Print not played songs
+exit - Exit the application
+        """)
+
+        user_inp = input("Choose an option:\n")
+        if user_inp == 'add':
+            add_album(MUSIC)
+        if user_inp == 'del':
+            ID = input()
+            remove_album(MUSIC, ID)
+        if user_inp == 'fav_a':
+            favorite_album()
+        if user_inp == 'fav_s':
+            favorite_song()
+        if user_inp == 'not_a':
+            unplayed_albums()
+        if user_inp == 'not_s':
+            unplayed_songs()
+        user_inp = input("Choose an option:\n")
+
+if __name__ == '__main__':
+    print_menu()
+
+
+
+
+
+
+

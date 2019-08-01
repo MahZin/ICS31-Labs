@@ -1,0 +1,105 @@
+10.5 LAB: Word frequencies
+###
+Write a program that reads a list of words. Then, the program outputs those words and their frequencies.
+
+Ex: If the input is:
+
+hey hi Mark hi mark
+
+Then, the output is:
+
+hey 1
+hi 2
+Mark 1
+hi 2
+mark 1
+###
+def freq(str):
+
+    str = str.split()
+    str2 = []
+
+    # loop till string values present in list str
+    for i in str:
+
+        # insert value in str2
+        str2.append(i)
+
+    for i in range(0, len(str2)):
+
+        # count the frequency of each word present
+        # in str2) in str and print
+        print(str2[i], str.count(str2[i]))
+
+
+def main():
+    str = input()
+    freq(str)
+
+if __name__ == "__main__":
+    main()
+
+
+
+10.6 LAB: Contact list
+###
+A contact list is a place where you can store a specific contact with other associated information such as a phone number, 
+email address, birthday, etc. Write a program that first takes in word pairs that consist of a name and a phone number (both strings). 
+That list is followed by a name, and your program should output that name's phone number.
+
+Ex: If the input is:
+
+Joe 123-5432 Linda 983-4123 Frank 867-5309
+Frank
+
+the output is:
+
+867-5309
+###
+s = input()
+name = input()
+splits = s.split(" ")
+i = 0
+for i in range(len(splits)):
+    if(splits[i] == name):
+        break
+print(splits[i+1])
+
+
+
+10.7 LAB: Replacement words
+###
+Write a program that replaces words in a sentence. The input begins with word replacement pairs (original and replacement). The next 
+line of input is the sentence where any word on the original list is replaced.
+
+Ex: If the input is:
+
+automobile car   manufacturer maker   children kids
+The automobile manufacturer recommends car seats for children if the automobile doesn't already have one.
+
+then the output is:
+
+The car maker recommends car seats for kids if the car doesn't already have one. 
+
+You can assume the original words are unique.
+###
+# take user input for words that replace
+s = input().split()
+# take user input of the whole sentence
+sentence = input()
+
+# define a dictionary
+d = dict()
+
+# loop to create the dictionary
+for i in range(0, len(s), 2):
+    d[s[i]] = s[i + 1]
+
+for x in d.keys():
+    sentence = sentence.replace(x, d[x])
+
+print(sentence)
+
+
+
+
